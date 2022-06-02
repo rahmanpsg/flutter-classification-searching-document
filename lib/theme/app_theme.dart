@@ -33,4 +33,19 @@ ThemeData appTheme = ThemeData(
     bodyText1: TextStyle(fontSize: 16, color: fontGreyColor),
     bodyText2: TextStyle(fontSize: 14, color: fontGreyColor),
   ),
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+        side: const BorderSide(
+          color: primaryColor,
+        ),
+      ),
+      elevation: 0,
+      primary: Colors.white,
+      onPrimary: primaryColor,
+      onSurface: greyColor,
+      minimumSize: const Size(0, 45),
+    ),
+  ),
 );
