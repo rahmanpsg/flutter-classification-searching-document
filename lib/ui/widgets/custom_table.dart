@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:pencarian_jurnal/theme/app_button.dart';
 import 'package:pencarian_jurnal/theme/app_color.dart';
 import 'package:pencarian_jurnal/theme/app_text.dart';
+import 'package:pencarian_jurnal/ui/widgets/custom_textfield.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:responsive_ui/responsive_ui.dart';
 
 class CustomTable extends StatelessWidget {
   final List<String> columns;
@@ -18,35 +19,44 @@ class CustomTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(8)),
-            border: Border.all(
-              color: greySecondaryColor,
-              width: 1,
+        const _Toolbar(),
+        const SizedBox(height: 12),
+        Flexible(
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(
+                Radius.circular(8),
+              ),
+              border: Border.all(
+                color: greySecondaryColor,
+                width: 1,
+              ),
             ),
-          ),
-          child: Column(
-            children: <Widget>[
-              _Header(columns: columns),
-              const Divider(color: greySecondaryColor, thickness: 1),
-              if (rows != null) ...[
-                const SizedBox(height: 8),
-                SizedBox(
-                  height: 70.h,
-                  child: ListView.separated(
-                    shrinkWrap: true,
-                    itemCount: rows!.length,
-                    itemBuilder: (_, index) =>
-                        _Row(children: rows![index].children!),
-                    separatorBuilder: (_, index) =>
-                        const Divider(color: greySecondaryColor, thickness: 1),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                _Header(columns: columns),
+                const Divider(color: greySecondaryColor, thickness: 1),
+                if (rows != null)
+                  Flexible(
+                    child: ListView.separated(
+                      shrinkWrap: true,
+                      itemCount: 10,
+                      // itemCount: rows!.length,
+                      itemBuilder: (_, index) => _Row(
+                        children: rows![index].children!,
+                      ),
+                      separatorBuilder: (_, index) => const Divider(
+                        color: greySecondaryColor,
+                        thickness: 1,
+                      ),
+                    ),
                   ),
-                )
+                const _Footer(),
               ],
-              const _Footer(),
-            ],
+            ),
           ),
         ),
       ],
@@ -59,12 +69,41 @@ class _Toolbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        Text("Lihat"),
-        const SizedBox(width: 8),
-        Icon(Icons.arrow_drop_down),
-      ],
+    return Container(
+      decoration: BoxDecoration(
+        color: primaryColor.withOpacity(.1),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(8),
+        ),
+      ),
+      padding: const EdgeInsets.all(8),
+      child: Row(
+        children: <Widget>[
+          SizedBox(
+            width: 30.w,
+            child: const CustomTextField(
+              hintText: "Cari jurnal",
+              prefixIcon: Icon(
+                Ionicons.search,
+                color: primaryColor,
+              ),
+            ),
+          ),
+          const Spacer(),
+          ElevatedButton.icon(
+            onPressed: () {},
+            icon: const Icon(Ionicons.add),
+            label: const Text("Tambah"),
+            style: ElevatedButton.styleFrom(
+              primary: primaryColor,
+              onPrimary: Colors.white,
+            ),
+          ),
+          // Text("Lihat"),
+          // const SizedBox(width: 8),
+          // Icon(Icons.arrow_drop_down),
+        ],
+      ),
     );
   }
 }
@@ -137,59 +176,73 @@ class _Footer extends StatelessWidget {
         vertical: 16,
         horizontal: 8,
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Responsive(
+        crossAxisAlignment: WrapCrossAlignment.start,
+        runSpacing: 16,
         children: <Widget>[
-          ElevatedButton.icon(
-            onPressed: null,
-            icon: const Icon(Ionicons.arrow_back),
-            label: const Text("Sebelumnya"),
-          ),
-          Row(
-            children: [
-              TextButton(
-                onPressed: () {},
-                child: Text("1"),
-                style: TextButton.styleFrom(
-                  backgroundColor: primaryColor.withOpacity(.1),
-                  minimumSize: Size(45, 45),
-                ),
-              ),
-              TextButton(
-                onPressed: () {},
-                child: Text("2"),
-                style: TextButton.styleFrom(
-                  // backgroundColor: primaryColor.withOpacity(.1),
-                  minimumSize: Size(45, 45),
-                ),
-              ),
-              TextButton(
-                onPressed: () {},
-                child: Text("3"),
-                style: TextButton.styleFrom(
-                  // backgroundColor: primaryColor.withOpacity(.1),
-                  minimumSize: Size(45, 45),
-                ),
-              ),
-              // TextButton(onPressed: () {}, child: Text("2")),
-              // TextButton(onPressed: () {}, child: Text("3")),
-              // const Text(". . .", style: primaryTextStyle),
-              // TextButton(onPressed: () {}, child: Text("8")),
-              // TextButton(onPressed: () {}, child: Text("9")),
-              // TextButton(onPressed: () {}, child: Text("10")),
-            ],
-          ),
-          Directionality(
-            textDirection: TextDirection.rtl,
+          Div(
+            colL: 2,
+            colS: 4,
             child: ElevatedButton.icon(
-              onPressed: () {},
-              icon: const Icon(
-                Ionicons.arrow_forward,
-                color: primaryColor,
-              ),
-              label: const Text(
-                "Selanjutnya",
-                style: primaryTextStyle,
+              onPressed: null,
+              icon: const Icon(Ionicons.arrow_back),
+              label: const Text("Sebelumnya"),
+            ),
+          ),
+          Div(
+            colL: 8,
+            colS: 4,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  onPressed: () {},
+                  child: Text("1"),
+                  style: TextButton.styleFrom(
+                    backgroundColor: primaryColor.withOpacity(.1),
+                    minimumSize: Size(45, 45),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: Text("2"),
+                  style: TextButton.styleFrom(
+                    // backgroundColor: primaryColor.withOpacity(.1),
+                    minimumSize: Size(45, 45),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: Text("3"),
+                  style: TextButton.styleFrom(
+                    // backgroundColor: primaryColor.withOpacity(.1),
+                    minimumSize: Size(45, 45),
+                  ),
+                ),
+                // TextButton(onPressed: () {}, child: Text("2")),
+                // TextButton(onPressed: () {}, child: Text("3")),
+                // const Text(". . .", style: primaryTextStyle),
+                // TextButton(onPressed: () {}, child: Text("8")),
+                // TextButton(onPressed: () {}, child: Text("9")),
+                // TextButton(onPressed: () {}, child: Text("10")),
+              ],
+            ),
+          ),
+          Div(
+            colL: 2,
+            colS: 4,
+            child: Directionality(
+              textDirection: TextDirection.rtl,
+              child: ElevatedButton.icon(
+                onPressed: () {},
+                icon: const Icon(
+                  Ionicons.arrow_forward,
+                  color: primaryColor,
+                ),
+                label: const Text(
+                  "Selanjutnya",
+                  style: primaryTextStyle,
+                ),
               ),
             ),
           ),

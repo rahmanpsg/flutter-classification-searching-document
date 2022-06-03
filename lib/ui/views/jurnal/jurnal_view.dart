@@ -17,18 +17,21 @@ class JurnalView extends StatelessWidget {
         JurnalViewModel model,
         Widget? child,
       ) {
-        return SingleChildScrollView(
+        return Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 16,
           ),
           child: Column(
             children: <Widget>[
-              CustomCard(
-                title: "Daftar Jurnal",
-                subtitle: "Silahkan tambahkan jurnal baru",
-                child: CustomTable(
-                  columns: model.tableColumns,
-                  rows: model.tableRows,
+              Flexible(
+                child: CustomCard(
+                  title: "Daftar Jurnal",
+                  subtitle: "Silahkan tambahkan jurnal baru",
+                  childExpanded: true,
+                  child: CustomTable(
+                    columns: model.tableColumns,
+                    rows: model.tableRows,
+                  ),
                 ),
               )
             ],

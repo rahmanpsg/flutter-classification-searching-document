@@ -8,6 +8,7 @@ class CustomCard extends StatelessWidget {
   final String? subtitle;
   final TextStyle subtitleStyle;
   final Widget child;
+  final bool childExpanded;
   final double? height;
   final double width;
 
@@ -19,6 +20,7 @@ class CustomCard extends StatelessWidget {
     this.subtitle,
     this.subtitleStyle = kSubtitleTextStyle,
     required this.child,
+    this.childExpanded = false,
     this.height,
     this.width = double.infinity,
   }) : super(key: key);
@@ -36,6 +38,7 @@ class CustomCard extends StatelessWidget {
       ),
       padding: const EdgeInsets.all(16),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           if (title != null) ...[
@@ -52,7 +55,8 @@ class CustomCard extends StatelessWidget {
             ),
             const SizedBox(height: 16),
           ],
-          child,
+          if (!childExpanded) child,
+          if (childExpanded) Flexible(child: child),
         ],
       ),
     );
