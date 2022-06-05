@@ -13,6 +13,10 @@ const dangerTextStyle = TextStyle(
   color: dangerColor,
 );
 
+const greyTextStyle = TextStyle(
+  color: greyColor,
+);
+
 const italicTextStyle = TextStyle(
   fontStyle: FontStyle.italic,
   color: fontColor,

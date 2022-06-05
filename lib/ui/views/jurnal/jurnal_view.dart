@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pencarian_jurnal/ui/views/table/table_view.dart';
 import 'package:pencarian_jurnal/ui/widgets/custom_card.dart';
-import 'package:pencarian_jurnal/ui/widgets/custom_table.dart';
 import 'package:stacked/stacked.dart';
 
 import 'jurnal_viewmodel.dart';
@@ -28,7 +28,7 @@ class JurnalView extends StatelessWidget {
                   title: "Daftar Jurnal",
                   subtitle: "Silahkan tambahkan jurnal baru",
                   childExpanded: true,
-                  child: CustomTable(
+                  child: TableView(
                     columns: model.tableColumns,
                     rows: model.tableRows,
                   ),

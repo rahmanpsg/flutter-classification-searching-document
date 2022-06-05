@@ -37,14 +37,25 @@ ThemeData appTheme = ThemeData(
     style: ElevatedButton.styleFrom(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
-        side: const BorderSide(
-          color: primaryColor,
-        ),
       ),
       elevation: 0,
-      primary: Colors.white,
-      onPrimary: primaryColor,
+      primary: primaryColor,
+      onPrimary: Colors.white,
       onSurface: greyColor,
+      minimumSize: const Size(0, 45),
+    ),
+  ),
+  outlinedButtonTheme: OutlinedButtonThemeData(
+    style: OutlinedButton.styleFrom(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+      side: const BorderSide(
+        color: primaryColor,
+        width: 1,
+      ),
+      primary: primaryColor,
+      onSurface: primaryColor,
       minimumSize: const Size(0, 45),
     ),
   ),
