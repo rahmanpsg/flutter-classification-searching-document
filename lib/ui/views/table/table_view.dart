@@ -18,8 +18,14 @@ class TableView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double maxWidth =
+        columns.map((column) => column.width).reduce((a, b) => a + b);
+
+    print("maxWidth: $maxWidth");
+
     return ViewModelBuilder<TableViewModel>.nonReactive(
       viewModelBuilder: () => TableViewModel(),
+      onModelReady: (model) => model.init(),
       builder: (
         BuildContext context,
         TableViewModel model,
@@ -27,6 +33,7 @@ class TableView extends StatelessWidget {
       ) {
         return Column(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Toolbar(),
             const SizedBox(height: 12),
@@ -45,21 +52,36 @@ class TableView extends StatelessWidget {
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Header(columns: columns),
+                    SingleChildScrollView(
+                      controller: model.headerScrollController,
+                      physics: const NeverScrollableScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      child: Header(
+                        columns: columns,
+                      ),
+                    ),
                     const Divider(color: greySecondaryColor, thickness: 1),
                     if (rows != null)
                       Flexible(
-                        child: ListView.separated(
-                          // shrinkWrap: true,
-                          itemCount: rows!.length,
-                          // itemCount: rows!.length,
-                          itemBuilder: (_, index) => Body(
-                            children: rows![index].children!,
-                          ),
-                          separatorBuilder: (_, index) => const Divider(
-                            color: greySecondaryColor,
-                            thickness: 1,
+                        child: SingleChildScrollView(
+                          controller: model.bodyScrollController,
+                          scrollDirection: Axis.horizontal,
+                          child: SizedBox(
+                            width: maxWidth + 20,
+                            child: ListView.separated(
+                              // shrinkWrap: true,
+                              itemCount: rows!.length,
+                              // itemCount: rows!.length,
+                              itemBuilder: (_, index) => Body(
+                                children: (rows![index].children!),
+                              ),
+                              separatorBuilder: (_, index) => const Divider(
+                                color: greySecondaryColor,
+                                thickness: 1,
+                              ),
+                            ),
                           ),
                         ),
                       ),

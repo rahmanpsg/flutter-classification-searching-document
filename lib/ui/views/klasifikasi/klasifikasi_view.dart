@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import 'jurnal_viewmodel.dart';
 
@@ -16,9 +17,9 @@ class KlasifikasiView extends StatelessWidget {
         Widget? child,
       ) {
         return Scaffold(
-          body: Center(
-            child: Text(
-              'KlasifikasiView',
+          body: Container(
+            child: SfPdfViewer.network(
+              'https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf',
             ),
           ),
         );

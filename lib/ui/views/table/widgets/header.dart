@@ -16,10 +16,12 @@ class Header extends ViewModelWidget<TableViewModel> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: columns.map((column) {
           return SizedBox(
-            // width: column.width,
+            width: column.width,
             child: Text(
               column.value,
               style: const TextStyle(

@@ -18,6 +18,8 @@ dependencies:
   responsive_ui: ^2.1.0
   stacked: ^2.3.8
   stacked_services: ^0.8.25
+  syncfusion_flutter_pdfviewer: ^20.1.58-beta
+  uuid: ^3.0.6
 
 dev_dependencies:
   build_runner: ^2.1.11

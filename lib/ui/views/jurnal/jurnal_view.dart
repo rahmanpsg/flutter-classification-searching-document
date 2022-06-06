@@ -12,6 +12,7 @@ class JurnalView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<JurnalViewModel>.nonReactive(
       viewModelBuilder: () => JurnalViewModel(),
+      onModelReady: (model) => model.init(),
       builder: (
         BuildContext context,
         JurnalViewModel model,

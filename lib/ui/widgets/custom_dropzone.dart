@@ -1,9 +1,12 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
+import 'package:pencarian_jurnal/app/app.locator.dart';
+import 'package:pencarian_jurnal/enums/dialog_type.dart';
 import 'package:pencarian_jurnal/models/file_data_model.dart';
 import 'package:pencarian_jurnal/theme/app_color.dart';
 import 'package:pencarian_jurnal/theme/app_text.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class CustomDropZone extends StatefulWidget {
   final ValueChanged<FileDataModel> onDroppedFile;
@@ -19,26 +22,29 @@ class CustomDropZone extends StatefulWidget {
 
 class _CustomDropZoneState extends State<CustomDropZone> {
   late DropzoneViewController controller;
+  late FileDataModel droppedFile;
+  bool isDropped = false;
 
   Future uploadedFile(dynamic event) async {
-    // this method is called when user drop the file in drop area in flutter
-
     final name = event.name;
     final mime = await controller.getFileMIME(event);
     final byte = await controller.getFileSize(event);
     final url = await controller.createFileUrl(event);
+
     print('Name : $name');
     print('Mime: $mime');
     print('Size : ${byte / (1024 * 1024)}');
     print('URL: $url');
 
+    locator<DialogService>().showCustomDialog(variant: DialogType.form);
+
     // update the data model with recent file uploaded
-    final droppedFile =
-        FileDataModel(name: name, mime: mime, bytes: byte, url: url);
+    droppedFile = FileDataModel(name: name, mime: mime, bytes: byte, url: url);
     //Update the UI
     widget.onDroppedFile(droppedFile);
+
     setState(() {
-      // highlight = false;
+      isDropped = true;
     });
   }
 
@@ -50,7 +56,8 @@ class _CustomDropZoneState extends State<CustomDropZone> {
       padding: const EdgeInsets.all(0),
       color: primaryColor,
       dashPattern: const [4, 4],
-      child: Container(
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
         height: 100,
         width: double.infinity,
         decoration: const BoxDecoration(
@@ -60,45 +67,53 @@ class _CustomDropZoneState extends State<CustomDropZone> {
           ),
         ),
         padding: const EdgeInsets.symmetric(vertical: 16),
-        child: Stack(
-          children: [
-            Builder(builder: (context) {
-              return DropzoneView(
-                operation: DragOperation.move,
-                cursor: CursorType.grab,
-                onCreated: (DropzoneViewController ctrl) => controller = ctrl,
-                onLoaded: () => print('Zone loaded'),
-                onError: (String? ev) => print('Error: $ev'),
-                onHover: () => print('Zone hovered'),
-                onDrop: (dynamic ev) => print('Drop: $ev'),
-                onDropMultiple: (List<dynamic>? ev) =>
-                    print('Drop multiple: $ev'),
-                onLeave: () => print('Zone left'),
-              );
-            }),
-            Center(
-              child: Column(
+        child: isDropped
+            ? Column(
                 children: <Widget>[
-                  ElevatedButton(
-                    onPressed: () async {
-                      final events = await controller.pickFiles(
-                        mime: ['application/pdf'],
-                      );
-                      if (events.isEmpty) return;
-                      uploadedFile(events.first);
-                    },
-                    child: const Text("Pilih file"),
+                  Text(
+                    droppedFile.name,
                   ),
                   const SizedBox(height: 8),
                   const Text(
-                    "atau drag file ke sini",
-                    style: greyTextStyle,
+                    'File berhasil terupload',
+                  ),
+                ],
+              )
+            : Stack(
+                children: [
+                  Builder(builder: (context) {
+                    return DropzoneView(
+                      mime: const ['application/pdf'],
+                      operation: DragOperation.move,
+                      cursor: CursorType.copy,
+                      onDrop: uploadedFile,
+                      onCreated: (DropzoneViewController ctrl) =>
+                          controller = ctrl,
+                    );
+                  }),
+                  Center(
+                    child: Column(
+                      children: <Widget>[
+                        ElevatedButton(
+                          onPressed: () async {
+                            final events = await controller.pickFiles(
+                              mime: ['application/pdf'],
+                            );
+                            if (events.isEmpty) return;
+                            uploadedFile(events.first);
+                          },
+                          child: const Text("Pilih file"),
+                        ),
+                        const SizedBox(height: 8),
+                        const Text(
+                          "atau drag file ke sini",
+                          style: greyTextStyle,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
-            ),
-          ],
-        ),
       ),
     );
   }
