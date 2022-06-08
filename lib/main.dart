@@ -1,5 +1,7 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:pencarian_jurnal/services/jurnal_service.dart';
 import 'package:pencarian_jurnal/theme/app_theme.dart';
 import 'package:pencarian_jurnal/ui/shared/setup_dialog_ui.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -8,10 +10,19 @@ import 'package:stacked_services/stacked_services.dart';
 
 import 'app/app.locator.dart';
 import 'app/app.router.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   setupLocator(environment: Environment.dev);
   setupDialogUi();
+
+  await locator<JurnalService>().syncData();
 
   runApp(const MyApp());
 }

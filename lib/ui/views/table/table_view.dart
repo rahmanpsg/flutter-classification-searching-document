@@ -21,8 +21,6 @@ class TableView extends StatelessWidget {
     double maxWidth =
         columns.map((column) => column.width).reduce((a, b) => a + b);
 
-    print("maxWidth: $maxWidth");
-
     return ViewModelBuilder<TableViewModel>.nonReactive(
       viewModelBuilder: () => TableViewModel(),
       onModelReady: (model) => model.init(),
@@ -69,7 +67,7 @@ class TableView extends StatelessWidget {
                           controller: model.bodyScrollController,
                           scrollDirection: Axis.horizontal,
                           child: SizedBox(
-                            width: maxWidth + 20,
+                            width: maxWidth + 130,
                             child: ListView.separated(
                               // shrinkWrap: true,
                               itemCount: rows!.length,

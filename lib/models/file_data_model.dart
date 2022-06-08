@@ -18,4 +18,22 @@ class FileDataModel {
         ? '${mb.toStringAsFixed(2)} MB'
         : '${kb.toStringAsFixed(2)} KB';
   }
+
+  FileDataModel.fromJson(Map<String, dynamic> json)
+      : name = json['name'],
+        mime = json['mime'],
+        bytes = json['bytes'],
+        url = json['url'];
+
+  Map<String, dynamic> toJson() => {
+        'name': name,
+        'mime': mime,
+        'bytes': bytes,
+        'url': url,
+      };
+
+  @override
+  String toString() {
+    return 'FileDataModel{name: $name, mime: $mime, bytes: $bytes, url: $url}';
+  }
 }

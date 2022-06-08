@@ -22,7 +22,9 @@ class JurnalModel {
 
   JurnalModel.fromJson(Map<String, dynamic> json)
       : _id = json['id'],
-        fileData = json['fileData'],
+        fileData = json['fileData'] != null
+            ? FileDataModel.fromJson(json['fileData'])
+            : null,
         nama = json['nama'],
         nim = json['nim'],
         tahun = json['tahun'],
@@ -30,7 +32,7 @@ class JurnalModel {
 
   Map<String, dynamic> toJson() => {
         'id': _id,
-        'fileData': fileData,
+        'fileData': fileData?.toJson(),
         'nama': nama,
         'nim': nim,
         'tahun': tahun,
@@ -41,4 +43,11 @@ class JurnalModel {
   String toString() {
     return 'JurnalModel{_id: $_id, _fileData: $fileData, _nama: $nama, _nim: $nim, _tahun: $tahun, _prodi: $prodi}';
   }
+
+  bool get isValid =>
+      fileData != null &&
+      nama != null &&
+      nim != null &&
+      tahun != null &&
+      prodi != null;
 }

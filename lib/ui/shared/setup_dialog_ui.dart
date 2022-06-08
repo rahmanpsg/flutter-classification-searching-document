@@ -120,14 +120,20 @@ class __FormDialogState extends State<_FormDialog> {
                       icon: const Icon(Ionicons.save),
                       label: const Text('Simpan'),
                       onPressed: () {
-                        setState(() {
-                          errorMessage = "Semua data harus diisi";
-                        });
-                        // widget.completer(
-                        //   DialogResponse(
-                        //     confirmed: true,
-                        //   ),
-                        // );
+                        if (!jurnal.isValid) {
+                          setState(() {
+                            errorMessage = "Semua data harus diisi";
+                          });
+
+                          return;
+                        }
+
+                        widget.completer(
+                          DialogResponse(
+                            confirmed: true,
+                            data: jurnal,
+                          ),
+                        );
                       },
                     ),
                   ),

@@ -4,33 +4,25 @@ import 'package:pencarian_jurnal/app/app.logger.dart';
 import 'package:pencarian_jurnal/enums/dialog_type.dart';
 import 'package:pencarian_jurnal/models/file_data_model.dart';
 import 'package:pencarian_jurnal/models/jurnal_model.dart';
+import 'package:pencarian_jurnal/services/jurnal_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class TableViewModel extends BaseViewModel {
   final log = getLogger('TableViewModel');
 
-  final DialogService _dialogService = locator<DialogService>();
+  final _dialogService = locator<DialogService>();
+  final _jurnalService = locator<JurnalService>();
 
-  final ScrollController headerScrollController = ScrollController();
-  final ScrollController bodyScrollController = ScrollController();
+  final headerScrollController = ScrollController();
+  final bodyScrollController = ScrollController();
+
+  JurnalModel? _jurnal;
 
   FileDataModel? _file;
   FileDataModel? get file => _file;
 
-  void setFile(FileDataModel? file) async {
-    _file = file;
-    notifyListeners();
-  }
-
-  void init() async {
-    // await Future.delayed(Duration(milliseconds: 500));
-    // await locator<DialogService>().showCustomDialog(
-    //   variant: DialogType.form,
-    //   title: "Form Dialog",
-    //   data: JurnalModel(),
-    // );
-
+  void init() {
     bodyScrollController.addListener(() {
       headerScrollController.animateTo(
         bodyScrollController.offset,
@@ -38,5 +30,30 @@ class TableViewModel extends BaseViewModel {
         curve: Curves.easeIn,
       );
     });
+  }
+
+  void setFile(FileDataModel? file) async {
+    _jurnal = JurnalModel(fileData: file);
+
+    final response = await _dialogService.showCustomDialog(
+      variant: DialogType.form,
+      title: "Form Dialog",
+      data: _jurnal,
+    );
+    log.d("response : ${response?.data}");
+
+    if (!response!.confirmed) return;
+
+    _jurnalService.addJurnal(_jurnal!);
+
+    _file = file;
+    notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    headerScrollController.dispose();
+    bodyScrollController.dispose();
+    super.dispose();
   }
 }

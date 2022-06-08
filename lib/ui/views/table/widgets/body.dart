@@ -18,6 +18,8 @@ class Body extends ViewModelWidget<TableViewModel> {
       padding: const EdgeInsets.only(left: 8, bottom: 8, right: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: children,
       ),
     );

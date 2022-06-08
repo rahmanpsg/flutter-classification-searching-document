@@ -9,6 +9,8 @@
 import 'package:stacked_core/stacked_core.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+import '../services/jurnal_service.dart';
+
 final locator = StackedLocator.instance;
 
 Future<void> setupLocator(
@@ -22,4 +24,5 @@ Future<void> setupLocator(
   locator.registerLazySingleton(() => DialogService());
   locator.registerLazySingleton(() => BottomSheetService());
   locator.registerLazySingleton(() => SnackbarService());
+  locator.registerLazySingleton(() => JurnalService());
 }

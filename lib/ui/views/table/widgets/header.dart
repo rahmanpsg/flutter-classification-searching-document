@@ -20,13 +20,16 @@ class Header extends ViewModelWidget<TableViewModel> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: columns.map((column) {
-          return SizedBox(
-            width: column.width,
-            child: Text(
-              column.value,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: SizedBox(
+              width: column.width,
+              child: Text(
+                column.value,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
               ),
             ),
           );
