@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:pencarian_jurnal/app/app.router.dart';
 import 'package:pencarian_jurnal/ui/views/home/widgets/sidebar_view.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 import 'home_viewmodel.dart';
 
@@ -17,8 +19,6 @@ class HomeView extends StatelessWidget {
         HomeViewModel model,
         Widget? child,
       ) {
-        print(Device.screenType);
-        print(Device.orientation);
         return Scaffold(
           body: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,14 +29,12 @@ class HomeView extends StatelessWidget {
               ),
               Expanded(
                 flex: Device.orientation == Orientation.landscape ? 7 : 3,
-                child: model.viewForIndex,
-                // child: Container(
-                //   height: double.infinity,
-                //   width: double.infinity,
-                //   color: backgroundColor,
-                //   child: Center(child: Text("Home")),
-                // ),
-              )
+                // child: model.viewForIndex,
+                child: ExtendedNavigator(
+                  router: HomeViewRouter(),
+                  navigatorKey: StackedService.nestedNavigationKey(0),
+                ),
+              ),
             ],
           ),
         );

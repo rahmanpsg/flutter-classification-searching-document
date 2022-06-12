@@ -10,7 +10,9 @@ dependencies:
   cloud_firestore: ^3.1.17
   cupertino_icons: ^1.0.2
   dotted_border: ^2.0.0+2
+  drop_down_list: ^0.0.2
   firebase_core: ^1.17.1
+  firebase_storage: ^10.2.17
   flutter:
     sdk: flutter
   flutter_dropzone: ^3.0.5
@@ -18,8 +20,8 @@ dependencies:
   ionicons: ^0.1.2
   responsive_sizer: ^3.0.8
   responsive_ui: ^2.1.0
-  stacked: ^2.3.8
-  stacked_services: ^0.8.25
+  stacked: ^2.3.12
+  stacked_services: ^0.8.26
   syncfusion_flutter_pdfviewer: ^20.1.58-beta
   uuid: ^3.0.6
 
@@ -28,7 +30,7 @@ dev_dependencies:
   flutter_lints: ^2.0.1
   flutter_test:
     sdk: flutter
-  stacked_generator: ^0.6.6+1
+  stacked_generator: ^0.7.5
 
 flutter:
   uses-material-design: true

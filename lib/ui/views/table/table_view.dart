@@ -21,7 +21,7 @@ class TableView extends StatelessWidget {
     double maxWidth =
         columns.map((column) => column.width).reduce((a, b) => a + b);
 
-    return ViewModelBuilder<TableViewModel>.nonReactive(
+    return ViewModelBuilder<TableViewModel>.reactive(
       viewModelBuilder: () => TableViewModel(),
       onModelReady: (model) => model.init(),
       builder: (

@@ -59,4 +59,11 @@ ThemeData appTheme = ThemeData(
       minimumSize: const Size(0, 45),
     ),
   ),
+  appBarTheme: const AppBarTheme(backgroundColor: primaryColor),
+  snackBarTheme: const SnackBarThemeData(
+    backgroundColor: primaryColor,
+    contentTextStyle: TextStyle(
+      color: Colors.white,
+    ),
+  ),
 );

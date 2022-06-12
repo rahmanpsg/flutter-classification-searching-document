@@ -2,8 +2,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:pencarian_jurnal/services/jurnal_service.dart';
+import 'package:pencarian_jurnal/services/prodi_service.dart';
 import 'package:pencarian_jurnal/theme/app_theme.dart';
 import 'package:pencarian_jurnal/ui/shared/setup_dialog_ui.dart';
+import 'package:pencarian_jurnal/ui/shared/setup_snackbar_ui.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -21,8 +23,10 @@ void main() async {
 
   setupLocator(environment: Environment.dev);
   setupDialogUi();
+  setupSnackbarUi();
 
   await locator<JurnalService>().syncData();
+  await locator<ProdiService>().syncData();
 
   runApp(const MyApp());
 }

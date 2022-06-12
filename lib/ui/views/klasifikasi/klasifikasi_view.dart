@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
-import 'jurnal_viewmodel.dart';
+import 'klasifikasi_viewmodel.dart';
 
 class KlasifikasiView extends StatelessWidget {
   const KlasifikasiView({Key? key}) : super(key: key);

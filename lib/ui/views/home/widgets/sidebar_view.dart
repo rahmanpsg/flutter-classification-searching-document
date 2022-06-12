@@ -4,6 +4,13 @@ import 'package:stacked/stacked.dart';
 
 import '../home_viewmodel.dart';
 
+class SidebarItem {
+  final String title;
+  final IconData icon;
+
+  SidebarItem({required this.title, required this.icon});
+}
+
 class SideBar extends ViewModelWidget<HomeViewModel> {
   const SideBar({Key? key}) : super(key: key);
 

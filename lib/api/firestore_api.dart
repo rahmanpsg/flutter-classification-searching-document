@@ -5,10 +5,16 @@ import 'package:pencarian_jurnal/models/response_api_model.dart';
 class FirestoreApi<T> {
   final log = getLogger("FirestoreApi");
 
+  final _firebaseFirestore = FirebaseFirestore.instance;
+
   /// need to set collection reference if you call this class
   late CollectionReference<T> collectionReference;
 
-  Future<ResponseApiModel<R>> getDocument<R>(String documentId) async {
+  Stream<List<QueryDocumentSnapshot<T>>> getCollectionStream() {
+    return collectionReference.snapshots().map((event) => event.docs);
+  }
+
+  Future<ResponseApiModel<T>> getDocument(String documentId) async {
     log.d("path : ${collectionReference.path}");
 
     try {
@@ -16,7 +22,7 @@ class FirestoreApi<T> {
 
       log.d("response : ${response.data()}");
 
-      return ResponseApiModel(error: false, data: response.data() as R);
+      return ResponseApiModel(error: false, data: response.data());
     } on FirebaseException catch (e) {
       log.e("error: ${e.toString()}");
       return ResponseApiModel(error: true, message: e.message ?? '');
@@ -26,8 +32,8 @@ class FirestoreApi<T> {
     }
   }
 
-  Future<ResponseApiModel<List<QueryDocumentSnapshot<R>>>>
-      getDocuments<R>() async {
+  Future<ResponseApiModel<List<QueryDocumentSnapshot<T>>>>
+      getDocuments() async {
     log.d("path : ${collectionReference.path}");
 
     log.d('T : $T');
@@ -38,7 +44,7 @@ class FirestoreApi<T> {
 
       return ResponseApiModel(
         error: false,
-        data: response.docs as List<QueryDocumentSnapshot<R>>,
+        data: response.docs,
       );
     } on FirebaseException catch (e) {
       log.e("error: ${e.toString()}");
@@ -49,14 +55,18 @@ class FirestoreApi<T> {
     }
   }
 
-  Future<ResponseApiModel> addDocument(T data) async {
+  Future<ResponseApiModel> addDocument(T data, [String? documentID]) async {
     log.i("path : ${collectionReference.path}, data :$data");
 
     try {
-      final response = await collectionReference.add(data);
+      await _firebaseFirestore.runTransaction((Transaction transactionHandler) {
+        return collectionReference
+            .doc(documentID ?? (data as dynamic).id)
+            .set(data, SetOptions(merge: true));
+      });
 
       log.i("addDocument: success");
-      return ResponseApiModel(error: false, data: response);
+      return ResponseApiModel(error: false);
     } on FirebaseException catch (e) {
       log.e("error: ${e.toString()}");
       return ResponseApiModel(error: true, message: e.message ?? '');
@@ -72,7 +82,10 @@ class FirestoreApi<T> {
         "path : ${collectionReference.path}, documenId : $documentId, data :$data");
 
     try {
-      await collectionReference.doc(documentId).update(data);
+      await _firebaseFirestore
+          .runTransaction((Transaction transactionHandler) async {
+        return collectionReference.doc(documentId).update(data);
+      });
 
       log.i("updateDocument: success");
       return ResponseApiModel(error: false);

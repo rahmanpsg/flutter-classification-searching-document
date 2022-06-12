@@ -25,27 +25,25 @@ class _CustomDropZoneState extends State<CustomDropZone> {
   late FileDataModel droppedFile;
   // bool isDropped = false;
 
-  Future uploadedFile(dynamic event) async {
-    final name = event.name;
-    final mime = await controller.getFileMIME(event);
-    final byte = await controller.getFileSize(event);
-    final url = await controller.createFileUrl(event);
+  Future setFile(dynamic event) async {
+    try {
+      final name = event.name;
+      final mime = await controller.getFileMIME(event);
+      final byte = await controller.getFileSize(event);
+      final fileData = await controller.getFileData(event);
 
-    log.d('Name : $name');
-    log.d('Mime: $mime');
-    log.d('Size : ${byte / (1024 * 1024)}');
-    log.d('URL: $url');
+      log.d('Name : $name');
+      log.d('Mime: $mime');
+      log.d('Size : ${byte / (1024 * 1024)}');
 
-    // locator<DialogService>().showCustomDialog(variant: DialogType.form);
-
-    // update the data model with recent file uploaded
-    droppedFile = FileDataModel(name: name, mime: mime, bytes: byte, url: url);
-    //Update the UI
-    widget.onDroppedFile(droppedFile);
-
-    // setState(() {
-    //   isDropped = true;
-    // });
+      // update the data model with recent file uploaded
+      droppedFile =
+          FileDataModel(name: name, mime: mime, bytes: byte, data: fileData);
+      //Update the UI
+      widget.onDroppedFile(droppedFile);
+    } catch (e) {
+      log.e(e);
+    }
   }
 
   @override
@@ -88,7 +86,7 @@ class _CustomDropZoneState extends State<CustomDropZone> {
                 mime: const ['application/pdf'],
                 operation: DragOperation.move,
                 cursor: CursorType.copy,
-                onDrop: uploadedFile,
+                onDrop: setFile,
                 onCreated: (DropzoneViewController ctrl) => controller = ctrl,
               );
             }),
@@ -101,7 +99,7 @@ class _CustomDropZoneState extends State<CustomDropZone> {
                         mime: ['application/pdf'],
                       );
                       if (events.isEmpty) return;
-                      uploadedFile(events.first);
+                      setFile(events.first);
                     },
                     child: const Text("Pilih file"),
                   ),

@@ -1,10 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:pencarian_jurnal/api/firebase_storage_api.dart';
 import 'package:pencarian_jurnal/api/firestore_api.dart';
+import 'package:pencarian_jurnal/app/app.locator.dart';
 import 'package:pencarian_jurnal/app/app.logger.dart';
 import 'package:pencarian_jurnal/models/jurnal_model.dart';
+import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
-class JurnalService {
+class JurnalService with ReactiveServiceMixin {
   final log = getLogger('JurnalService');
+
+  final _snackbarService = locator<SnackbarService>();
 
   final _firestoreApi = FirestoreApi<JurnalModel>()
     ..collectionReference = FirebaseFirestore.instance
@@ -15,24 +21,42 @@ class JurnalService {
           toFirestore: (movie, _) => movie.toJson(),
         );
 
-  final List<JurnalModel> _jurnals = [];
+  final ReactiveList<JurnalModel> _jurnals = ReactiveList<JurnalModel>();
+  // final ReactiveValue<List<JurnalModel>> _jurnals =
+  //     ReactiveValue<List<JurnalModel>>([]);
 
   List<JurnalModel> get jurnals => _jurnals;
 
+  JurnalService() {
+    listenToReactiveValues([_jurnals]);
+  }
+
   Future<void> syncData() async {
+    // final stream = _firestoreApi.getCollectionStream();
+
+    // stream.listen((event) {
+    //   // _jurnals.clear();
+    //   // _jurnals.addAll(event.map((e) => e.data()));
+    //   _jurnals.value = event.map((e) => e.data()).toList();
+
+    //   log.i("update : ${_jurnals.value}");
+    // });
+
     try {
-      final response = await _firestoreApi.getDocuments<JurnalModel>();
+      final response = await _firestoreApi.getDocuments();
 
       log.d("response : ${response.data}");
 
       if (response.error) {
         log.e("error: ${response.message}");
+        _snackbarService.showSnackbar(
+          title: 'Error',
+          message: response.message,
+        );
         return;
       }
 
       if (response.data == null) return;
-
-      _jurnals.clear();
 
       _jurnals.addAll(response.data!.map((e) => e.data()));
     } catch (e) {
@@ -43,13 +67,63 @@ class JurnalService {
   Future<void> addJurnal(JurnalModel jurnal) async {
     final response = await _firestoreApi.addDocument(jurnal);
 
-    log.d("response : ${response.data}");
+    _snackbarService.showSnackbar(
+      title: response.error ? 'Error' : 'Informasi',
+      message: response.error ? response.message : 'Jurnal berhasil ditambakan',
+    );
+
+    if (response.error) {
+      log.e("error: ${response.message}");
+
+      return;
+    }
+
+    _jurnals.insert(0, jurnal);
+
+    log.d("add jurnal : $jurnal");
+  }
+
+  Future<void> updateJurnal(JurnalModel newJurnal) async {
+    final response =
+        await _firestoreApi.updateDocument(newJurnal.id, newJurnal.toJson());
+
+    _snackbarService.showSnackbar(
+      title: response.error ? 'Error' : 'Informasi',
+      message:
+          response.error ? response.message : 'Data jurnal berhasil diubah',
+    );
 
     if (response.error) {
       log.e("error: ${response.message}");
       return;
     }
 
-    _jurnals.add(jurnal);
+    int index = _jurnals.indexWhere((j) => j.id == newJurnal.id);
+
+    _jurnals.removeAt(index);
+    _jurnals.insert(index, newJurnal);
+
+    log.d("update jurnal : $newJurnal");
+  }
+
+  Future<void> deleteJurnal(JurnalModel jurnal) async {
+    final response = await _firestoreApi.deleteDocument(jurnal.id);
+
+    await locator<FirebaseStorageApi>()
+        .deleteFile('jurnals/${jurnal.fileData?.name}');
+
+    _snackbarService.showSnackbar(
+      title: response.error ? 'Error' : 'Informasi',
+      message: response.error ? response.message : 'Jurnal berhasil dihapus',
+    );
+
+    if (response.error) {
+      log.e("error: ${response.message}");
+      return;
+    }
+
+    _jurnals.remove(jurnal);
+
+    log.d("delete jurnal : $jurnal");
   }
 }

@@ -4,6 +4,7 @@ import 'package:pencarian_jurnal/theme/app_text.dart';
 
 class CustomTextField extends StatelessWidget {
   final TextEditingController? controller;
+  final Function()? onTap;
   final bool readOnly;
   final bool obscureText;
   final int maxLines;
@@ -20,6 +21,7 @@ class CustomTextField extends StatelessWidget {
   const CustomTextField({
     Key? key,
     this.controller,
+    this.onTap,
     this.readOnly = false,
     this.obscureText = false,
     this.maxLines = 1,
@@ -48,6 +50,7 @@ class CustomTextField extends StatelessWidget {
 
     return TextField(
       controller: controller,
+      onTap: onTap,
       readOnly: readOnly,
       obscureText: obscureText,
       keyboardType: keyboardType,
