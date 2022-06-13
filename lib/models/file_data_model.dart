@@ -6,6 +6,7 @@ class FileDataModel {
   final int bytes;
   Uint8List? data;
   String? url;
+  String? text;
 
   FileDataModel({
     required this.name,
@@ -13,6 +14,7 @@ class FileDataModel {
     required this.bytes,
     this.data,
     this.url,
+    this.text,
   });
 
   String get size {
@@ -34,6 +36,7 @@ class FileDataModel {
         'mime': mime,
         'bytes': bytes,
         'url': url,
+        'text': text,
       };
 
   @override

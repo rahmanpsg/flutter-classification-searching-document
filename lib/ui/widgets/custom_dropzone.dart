@@ -5,6 +5,8 @@ import 'package:pencarian_jurnal/app/app.logger.dart';
 import 'package:pencarian_jurnal/models/file_data_model.dart';
 import 'package:pencarian_jurnal/theme/app_color.dart';
 import 'package:pencarian_jurnal/theme/app_text.dart';
+import 'package:pencarian_jurnal/utils/preprocessing.dart';
+import 'package:syncfusion_flutter_pdf/pdf.dart';
 
 class CustomDropZone extends StatefulWidget {
   final ValueChanged<FileDataModel> onDroppedFile;
@@ -25,6 +27,8 @@ class _CustomDropZoneState extends State<CustomDropZone> {
   late FileDataModel droppedFile;
   // bool isDropped = false;
 
+  Preprocessing preprocessing = Preprocessing();
+
   Future setFile(dynamic event) async {
     try {
       final name = event.name;
@@ -36,9 +40,23 @@ class _CustomDropZoneState extends State<CustomDropZone> {
       log.d('Mime: $mime');
       log.d('Size : ${byte / (1024 * 1024)}');
 
+      //Load an existing PDF document.
+      final PdfDocument document = PdfDocument(inputBytes: fileData);
+      //Extract the text from all the pages.
+      String text = PdfTextExtractor(document).extractText();
+
+      //Dispose the document.
+      document.dispose();
+
+      String textPreprocessing = await preprocessing.preprocess(text);
+
       // update the data model with recent file uploaded
-      droppedFile =
-          FileDataModel(name: name, mime: mime, bytes: byte, data: fileData);
+      droppedFile = FileDataModel(
+          name: name,
+          mime: mime,
+          bytes: byte,
+          data: fileData,
+          text: textPreprocessing);
       //Update the UI
       widget.onDroppedFile(droppedFile);
     } catch (e) {

@@ -560,6 +560,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  snowball_stemmer:
+    dependency: "direct main"
+    description:
+      name: snowball_stemmer
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
   source_gen:
     dependency: transitive
     description:
@@ -636,14 +643,14 @@ packages:
       name: syncfusion_flutter_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "20.1.58+1"
+    version: "20.1.59"
   syncfusion_flutter_pdf:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: syncfusion_flutter_pdf
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "20.1.58-beta"
+    version: "20.1.59-beta"
   syncfusion_flutter_pdfviewer:
     dependency: "direct main"
     description:
