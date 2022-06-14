@@ -30,9 +30,7 @@ class Footer extends ViewModelWidget<TableViewModel> {
         runSpacing: 16,
         children: <Widget>[
           Div(
-            colL: 2,
-            colM: 4,
-            colS: 4,
+            divison: const Division(colL: 2, colM: 4, colS: 4),
             child: OutlinedButton.icon(
               onPressed: null,
               icon: const Icon(Ionicons.arrow_back),
@@ -40,9 +38,7 @@ class Footer extends ViewModelWidget<TableViewModel> {
             ),
           ),
           Div(
-            colL: 8,
-            colM: 4,
-            colS: 4,
+            divison: const Division(colL: 8, colM: 4, colS: 4),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -80,9 +76,7 @@ class Footer extends ViewModelWidget<TableViewModel> {
             ),
           ),
           Div(
-            colL: 2,
-            colM: 4,
-            colS: 4,
+            divison: const Division(colL: 2, colM: 4, colS: 4),
             child: Directionality(
               textDirection: TextDirection.rtl,
               child: OutlinedButton.icon(

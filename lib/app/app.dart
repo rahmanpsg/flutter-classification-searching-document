@@ -1,4 +1,7 @@
 import 'package:pencarian_jurnal/api/firebase_storage_api.dart';
+import 'package:pencarian_jurnal/api/firestore_api.dart';
+import 'package:pencarian_jurnal/models/jurnal_model.dart';
+import 'package:pencarian_jurnal/models/prodi_model.dart';
 import 'package:pencarian_jurnal/services/jurnal_service.dart';
 import 'package:pencarian_jurnal/services/prodi_service.dart';
 import 'package:pencarian_jurnal/ui/views/dashboard/dashboard_view.dart';

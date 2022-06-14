@@ -9,6 +9,7 @@ environment:
 dependencies:
   cloud_firestore: ^3.1.17
   cupertino_icons: ^1.0.2
+  dio: ^4.0.6
   dotted_border: ^2.0.0+2
   drop_down_list: ^0.0.2
   firebase_core: ^1.17.1
@@ -19,7 +20,7 @@ dependencies:
   get: ^4.6.5
   ionicons: ^0.1.2
   responsive_sizer: ^3.0.8
-  responsive_ui: ^2.1.0
+  responsive_ui: ^3.0.0
   snowball_stemmer: ^0.1.0
   stacked: ^2.3.12
   stacked_services: ^0.8.26
@@ -32,7 +33,7 @@ dev_dependencies:
   flutter_lints: ^2.0.1
   flutter_test:
     sdk: flutter
-  stacked_generator: ^0.7.5
+  stacked_generator: ^0.7.6
 
 flutter:
   uses-material-design: true

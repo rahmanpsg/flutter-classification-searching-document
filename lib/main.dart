@@ -21,7 +21,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  setupLocator(environment: Environment.dev);
+  setupLocator();
   setupDialogUi();
   setupSnackbarUi();
 

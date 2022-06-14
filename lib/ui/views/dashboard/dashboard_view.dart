@@ -36,8 +36,7 @@ class DashboardView extends StatelessWidget {
                   runSpacing: 8,
                   children: <Widget>[
                     Div(
-                      colL: 4,
-                      colS: 12,
+                      divison: const Division(colL: 4, colS: 12),
                       child: const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8),
                         child: CustomStats(
@@ -48,8 +47,7 @@ class DashboardView extends StatelessWidget {
                       ),
                     ),
                     Div(
-                      colL: 4,
-                      colS: 12,
+                      divison: const Division(colL: 4, colS: 12),
                       child: const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8),
                         child: CustomStats(
@@ -61,8 +59,7 @@ class DashboardView extends StatelessWidget {
                       ),
                     ),
                     Div(
-                      colL: 4,
-                      colS: 12,
+                      divison: const Division(colL: 4, colS: 12),
                       child: const CustomStats(
                         icon: Ionicons.document,
                         title: "10",

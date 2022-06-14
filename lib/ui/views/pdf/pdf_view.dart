@@ -24,9 +24,11 @@ class PdfView extends StatelessWidget {
           appBar: AppBar(title: Text(jurnal.fileData?.name ?? 'Pdf')),
           backgroundColor: greyThirdColor,
           body: Center(
-            child: SfPdfViewer.network(
-              jurnal.fileData?.url ?? '',
-            ),
+            child: jurnal.fileData?.url != null
+                ? SfPdfViewer.network(
+                    jurnal.fileData!.url!,
+                  )
+                : SfPdfViewer.memory(jurnal.fileData!.data!),
           ),
         );
       },
