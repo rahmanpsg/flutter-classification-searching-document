@@ -7,6 +7,7 @@ import 'package:pencarian_jurnal/models/file_data_model.dart';
 import 'package:pencarian_jurnal/models/jurnal_model.dart';
 import 'package:pencarian_jurnal/services/jurnal_service.dart';
 import 'package:pencarian_jurnal/ui/shared/form_dialog/form_dialog_view.dart';
+import 'package:pencarian_jurnal/utils/debounce.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -18,6 +19,9 @@ class TableViewModel extends ReactiveViewModel {
 
   final headerScrollController = ScrollController();
   final bodyScrollController = ScrollController();
+  final searchController = TextEditingController();
+
+  final _debounce = Debounce(const Duration(milliseconds: 1000));
 
   JurnalModel? _jurnal;
 
@@ -32,6 +36,25 @@ class TableViewModel extends ReactiveViewModel {
         curve: Curves.easeIn,
       );
     });
+
+    searchController.addListener(() {
+      _debounce.call(() {
+        setSearchTextFilter(searchController.text);
+      });
+    });
+  }
+
+  void setSearchTextFilter(String text) {
+    if (text.isEmpty) return;
+
+    setBusy(true);
+
+    // _listFiltered = _list
+    //     .where(
+    //         (value) => value.label.toLowerCase().contains(text.toLowerCase()))
+    //     .toList();
+
+    setBusy(false);
   }
 
   void setFile(FileDataModel? file) async {

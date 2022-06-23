@@ -12,12 +12,12 @@ class ProdiService with ReactiveServiceMixin {
         .collection('prodies')
         .withConverter<ProdiModel>(
           fromFirestore: (snapshot, _) => ProdiModel.fromJson(snapshot.data()!),
-          toFirestore: (movie, _) => movie.toJson(),
+          toFirestore: (model, _) => model.toJson(),
         );
 
-  // final ReactiveList<ProdiModel> _prodis = ReactiveList<ProdiModel>();
-  final ReactiveValue<List<ProdiModel>> _prodis =
-      ReactiveValue<List<ProdiModel>>([]);
+  final ReactiveList<ProdiModel> _prodis = ReactiveList<ProdiModel>();
+  // final ReactiveValue<List<ProdiModel>> _prodis =
+  //     ReactiveValue<List<ProdiModel>>([]);
 
   ProdiService() {
     listenToReactiveValues([_prodis]);
@@ -36,12 +36,16 @@ class ProdiService with ReactiveServiceMixin {
 
       if (response.data == null) return;
 
-      _prodis.value = response.data!.map((e) => e.data()).toList()
-        ..sort((a, b) => a.fakultas.compareTo(b.fakultas));
+      final prodis = response.data!.map((e) => e.data()).toList()
+        ..sort(
+          (a, b) => a.fakultas.compareTo(b.fakultas),
+        );
+
+      _prodis.addAll(prodis);
     } catch (e) {
       log.e(e);
     }
   }
 
-  List<ProdiModel> get prodis => _prodis.value;
+  List<ProdiModel> get prodis => _prodis;
 }

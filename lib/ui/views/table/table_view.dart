@@ -33,7 +33,7 @@ class TableView extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Toolbar(),
+            // const Toolbar(),
             const SizedBox(height: 12),
             CustomDropZone(onDroppedFile: model.setFile),
             const SizedBox(height: 12),

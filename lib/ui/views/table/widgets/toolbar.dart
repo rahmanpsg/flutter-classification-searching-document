@@ -10,12 +10,13 @@ class Toolbar extends ViewModelWidget<TableViewModel> {
   const Toolbar({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, TableViewModel model) {
+  Widget build(BuildContext context, TableViewModel viewModel) {
     return SizedBox(
-      width: 30.w,
-      child: const CustomTextField(
+      width: Device.screenType != ScreenType.mobile ? 40.w : null,
+      child: CustomTextField(
+        controller: viewModel.searchController,
         hintText: "Cari jurnal",
-        prefixIcon: Icon(
+        prefixIcon: const Icon(
           Ionicons.search,
           color: primaryColor,
         ),

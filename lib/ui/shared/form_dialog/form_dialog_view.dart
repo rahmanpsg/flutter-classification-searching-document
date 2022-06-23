@@ -129,11 +129,13 @@ class FormDialogView extends StatelessWidget {
                           searchBackgroundColor: Colors.black12,
                           dataList: model.prodis
                               .map(
-                                (prodi) => SelectedListItem(false, prodi.nama),
+                                (prodi) => SelectedListItem(
+                                    false, "${prodi.fakultas} - ${prodi.nama}"),
                               )
                               .toList(),
                           selectedItem: (String selected) {
-                            model.prodiController.text = selected;
+                            model.prodiController.text =
+                                selected.split(' - ')[1];
                           },
                           enableMultipleSelection: false,
                           searchController: model.searchController,
