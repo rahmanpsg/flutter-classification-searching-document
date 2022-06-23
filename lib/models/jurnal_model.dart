@@ -8,6 +8,7 @@ class JurnalModel {
   String? nim;
   String? tahun;
   String? prodi;
+  double? jarak;
 
   JurnalModel({
     String? id,
@@ -16,6 +17,7 @@ class JurnalModel {
     this.nim,
     this.tahun,
     this.prodi,
+    this.jarak,
   }) : _id = id ?? const Uuid().v4();
 
   String get id => _id;
@@ -28,7 +30,8 @@ class JurnalModel {
         nama = json['nama'],
         nim = json['nim'],
         tahun = json['tahun'],
-        prodi = json['prodi'];
+        prodi = json['prodi'],
+        jarak = json['jarak'];
 
   Map<String, dynamic> toJson() => {
         'id': _id,

@@ -50,13 +50,13 @@ class CustomStats extends StatelessWidget {
               children: <Widget>[
                 Text(
                   title,
-                  style: boldTextStyle,
+                  style: boldTextStyle.copyWith(fontSize: 20),
                 ),
                 const SizedBox(height: 8),
                 Text(
                   subtitle,
                   style: const TextStyle(
-                    fontSize: 12,
+                    fontSize: 18,
                   ),
                 ),
               ],

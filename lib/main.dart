@@ -7,7 +7,6 @@ import 'package:pencarian_jurnal/theme/app_theme.dart';
 import 'package:pencarian_jurnal/ui/shared/setup_dialog_ui.dart';
 import 'package:pencarian_jurnal/ui/shared/setup_snackbar_ui.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import 'app/app.locator.dart';

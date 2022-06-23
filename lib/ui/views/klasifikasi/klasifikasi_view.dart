@@ -65,14 +65,73 @@ class KlasifikasiView extends StatelessWidget {
                           child: OutlinedButton.icon(
                             onPressed: model.isBusy ? null : model.onSubmit,
                             icon: model.isBusy
-                                ? const CircularProgressIndicator()
+                                ? const SizedBox(
+                                    height: 16,
+                                    width: 16,
+                                    child: CircularProgressIndicator(
+                                      color: primaryColor,
+                                    ))
                                 : const Icon(Ionicons.send),
                             label: const Text('Proses'),
                           ),
                         )
                       ],
                     ),
-                  )
+                  ),
+                  const SizedBox(height: 16),
+                  if (model.result != null)
+                    CustomCard(
+                      title: 'Hasil Klasifikasi',
+                      child: Card(
+                        elevation: 0,
+                        child: ListView.separated(
+                          itemBuilder: ((context, index) {
+                            final jurnal = model.result![index];
+
+                            return ListTile(
+                              tileColor: thirdColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                              ),
+                              leading: GestureDetector(
+                                onTap: () => model.toPDFView(jurnal),
+                                child: Tooltip(
+                                  message: "Lihat",
+                                  child: MouseRegion(
+                                    cursor: SystemMouseCursors.click,
+                                    child: Card(
+                                      child: Image.network(
+                                        "https://img.icons8.com/external-flatart-icons-flat-flatarticons/64/undefined/external-pdf-file-online-learning-flatart-icons-flat-flatarticons.png",
+                                        height: 40,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              title: Text(
+                                jurnal.nama ?? '-',
+                                style: boldTextStyle,
+                              ),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Prodi: ${jurnal.prodi}',
+                                  ),
+                                  Text(
+                                    'Jarak: ${jurnal.jarak}',
+                                  ),
+                                ],
+                              ),
+                            );
+                          }),
+                          separatorBuilder: (context, index) =>
+                              const SizedBox(height: 8),
+                          itemCount: model.result!.length,
+                          shrinkWrap: true,
+                        ),
+                      ),
+                    )
                 ],
               )),
         );

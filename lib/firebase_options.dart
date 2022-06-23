@@ -27,15 +27,9 @@ class DefaultFirebaseOptions {
           'you can reconfigure this by running the FlutterFire CLI again.',
         );
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
     }
 
     throw UnsupportedError(
@@ -50,5 +44,25 @@ class DefaultFirebaseOptions {
     projectId: 'jurnal-classification',
     authDomain: 'jurnal-classification.firebaseapp.com',
     storageBucket: 'jurnal-classification.appspot.com',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyBpzS3_vAv6oueGh6CDf6d1uY_zzgjOjN4',
+    appId: '1:679728678272:ios:a70d49b34e488d72dbed65',
+    messagingSenderId: '679728678272',
+    projectId: 'jurnal-classification',
+    storageBucket: 'jurnal-classification.appspot.com',
+    iosClientId: '679728678272-d3379pnl649o1mdfdrqaef0n9ashpelp.apps.googleusercontent.com',
+    iosBundleId: 'com.example.pencarianJurnal',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyBpzS3_vAv6oueGh6CDf6d1uY_zzgjOjN4',
+    appId: '1:679728678272:ios:a70d49b34e488d72dbed65',
+    messagingSenderId: '679728678272',
+    projectId: 'jurnal-classification',
+    storageBucket: 'jurnal-classification.appspot.com',
+    iosClientId: '679728678272-d3379pnl649o1mdfdrqaef0n9ashpelp.apps.googleusercontent.com',
+    iosBundleId: 'com.example.pencarianJurnal',
   );
 }

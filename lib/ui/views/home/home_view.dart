@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:pencarian_jurnal/app/app.router.dart';
 import 'package:pencarian_jurnal/ui/views/home/widgets/sidebar_view.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -37,6 +38,30 @@ class HomeView extends StatelessWidget {
               ),
             ],
           ),
+          bottomNavigationBar: Device.screenType != ScreenType.mobile
+              ? null
+              : BottomNavigationBar(
+                  currentIndex: model.sidebarActiveIndex,
+                  onTap: model.setSidebarActiveIndex,
+                  items: const [
+                    BottomNavigationBarItem(
+                      icon: Icon(Ionicons.home),
+                      label: 'Dashboard',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Ionicons.document_text),
+                      label: 'Jurnal',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Ionicons.library),
+                      label: 'Klasifikasi',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Ionicons.search),
+                      label: 'Pencarian',
+                    ),
+                  ],
+                ),
         );
       },
     );

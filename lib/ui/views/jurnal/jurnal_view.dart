@@ -145,17 +145,17 @@ class JurnalView extends StatelessWidget {
                                   width: model.tableColumns[5].width,
                                   child: Row(
                                     children: <Widget>[
-                                      Tooltip(
-                                        message: "Download",
-                                        child: IconButton(
-                                          icon: const Icon(
-                                            Ionicons.download,
-                                            color: secondaryColor,
-                                          ),
-                                          onPressed: () =>
-                                              model.onDownloadTap(jurnal),
-                                        ),
-                                      ),
+                                      // Tooltip(
+                                      //   message: "Download",
+                                      //   child: IconButton(
+                                      //     icon: const Icon(
+                                      //       Ionicons.download,
+                                      //       color: secondaryColor,
+                                      //     ),
+                                      //     onPressed: () =>
+                                      //         model.onDownloadTap(jurnal),
+                                      //   ),
+                                      // ),
                                       Tooltip(
                                         message: "Ubah",
                                         child: IconButton(

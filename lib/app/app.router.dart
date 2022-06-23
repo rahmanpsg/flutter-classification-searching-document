@@ -73,9 +73,9 @@ class PdfViewArguments {
 }
 
 class HomeViewRoutes {
-  static const String dashboardView = '/klasifikasi-view';
+  static const String dashboardView = '/';
   static const String jurnalView = '/jurnal-view';
-  static const String klasifikasiView = '/';
+  static const String klasifikasiView = '/klasifikasi-view';
   static const String pencarianView = '/pencarian-view';
   static const all = <String>{
     dashboardView,

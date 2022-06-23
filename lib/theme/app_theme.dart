@@ -66,4 +66,8 @@ ThemeData appTheme = ThemeData(
       color: Colors.white,
     ),
   ),
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+    selectedItemColor: primaryColor,
+    unselectedItemColor: secondaryColor,
+  ),
 );

@@ -2,8 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pencarian_jurnal/api/firestore_api.dart';
 import 'package:pencarian_jurnal/app/app.logger.dart';
 import 'package:pencarian_jurnal/models/prodi_model.dart';
+import 'package:stacked/stacked.dart';
 
-class ProdiService {
+class ProdiService with ReactiveServiceMixin {
   final log = getLogger('ProdiService');
 
   final _firestoreApi = FirestoreApi<ProdiModel>()
@@ -14,9 +15,13 @@ class ProdiService {
           toFirestore: (movie, _) => movie.toJson(),
         );
 
-  final List<ProdiModel> _prodis = [];
+  // final ReactiveList<ProdiModel> _prodis = ReactiveList<ProdiModel>();
+  final ReactiveValue<List<ProdiModel>> _prodis =
+      ReactiveValue<List<ProdiModel>>([]);
 
-  List<ProdiModel> get prodis => _prodis;
+  ProdiService() {
+    listenToReactiveValues([_prodis]);
+  }
 
   Future<void> syncData() async {
     try {
@@ -31,9 +36,12 @@ class ProdiService {
 
       if (response.data == null) return;
 
-      _prodis.addAll(response.data!.map((e) => e.data()));
+      _prodis.value = response.data!.map((e) => e.data()).toList()
+        ..sort((a, b) => a.fakultas.compareTo(b.fakultas));
     } catch (e) {
       log.e(e);
     }
   }
+
+  List<ProdiModel> get prodis => _prodis.value;
 }
