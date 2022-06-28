@@ -6,6 +6,7 @@ import 'package:pencarian_jurnal/enums/form_dialog_type.dart';
 import 'package:pencarian_jurnal/models/file_data_model.dart';
 import 'package:pencarian_jurnal/models/jurnal_model.dart';
 import 'package:pencarian_jurnal/services/jurnal_service.dart';
+import 'package:pencarian_jurnal/services/prodi_service.dart';
 import 'package:pencarian_jurnal/ui/shared/form_dialog/form_dialog_view.dart';
 import 'package:pencarian_jurnal/utils/debounce.dart';
 import 'package:stacked/stacked.dart';
@@ -16,6 +17,7 @@ class TableViewModel extends ReactiveViewModel {
 
   final _dialogService = locator<DialogService>();
   final _jurnalService = locator<JurnalService>();
+  final _prodiService = locator<ProdiService>();
 
   final headerScrollController = ScrollController();
   final bodyScrollController = ScrollController();
@@ -58,7 +60,8 @@ class TableViewModel extends ReactiveViewModel {
   }
 
   void setFile(FileDataModel? file) async {
-    _jurnal = JurnalModel(fileData: file);
+    _jurnal =
+        JurnalModel(fileData: file, prodi: _prodiService.prodiSelected?.nama);
 
     final response = await _dialogService.showCustomDialog(
       variant: DialogType.form,

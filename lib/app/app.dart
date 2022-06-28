@@ -6,6 +6,7 @@ import 'package:pencarian_jurnal/services/jurnal_service.dart';
 import 'package:pencarian_jurnal/services/prodi_service.dart';
 import 'package:pencarian_jurnal/ui/views/dashboard/dashboard_view.dart';
 import 'package:pencarian_jurnal/ui/views/jurnal/jurnal_view.dart';
+import 'package:pencarian_jurnal/ui/views/jurnal_folder/jurnal_folder_view.dart';
 import 'package:pencarian_jurnal/ui/views/klasifikasi/klasifikasi_view.dart';
 import 'package:pencarian_jurnal/ui/views/pdf/pdf_view.dart';
 import 'package:pencarian_jurnal/ui/views/pencarian/pencarian_view.dart';
@@ -18,6 +19,7 @@ import 'package:pencarian_jurnal/ui/views/home/home_view.dart';
     CupertinoRoute(page: HomeView, initial: true, children: [
       CupertinoRoute(page: DashboardView, initial: true),
       CupertinoRoute(page: JurnalView),
+      CupertinoRoute(page: JurnalFolderView),
       CupertinoRoute(page: KlasifikasiView),
       CupertinoRoute(page: PencarianView),
     ]),

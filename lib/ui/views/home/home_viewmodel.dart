@@ -1,7 +1,7 @@
 import 'package:ionicons/ionicons.dart';
 import 'package:pencarian_jurnal/app/app.locator.dart';
 import 'package:pencarian_jurnal/ui/views/dashboard/dashboard_view.dart';
-import 'package:pencarian_jurnal/ui/views/jurnal/jurnal_view.dart';
+import 'package:pencarian_jurnal/ui/views/jurnal_folder/jurnal_folder_view.dart';
 import 'package:pencarian_jurnal/ui/views/klasifikasi/klasifikasi_view.dart';
 import 'package:pencarian_jurnal/ui/views/pencarian/pencarian_view.dart';
 import 'package:stacked/stacked.dart';
@@ -9,10 +9,8 @@ import 'package:stacked_services/stacked_services.dart';
 
 import 'widgets/sidebar_view.dart';
 
-class HomeViewModel extends BaseViewModel {
+class HomeViewModel extends IndexTrackingViewModel {
   final _navigationService = locator<NavigationService>();
-
-  int _sidebarActiveIndex = 0;
 
   final List<SidebarItem> _sidebarItems = [
     SidebarItem(title: "Dashboard", icon: Ionicons.home),
@@ -21,11 +19,12 @@ class HomeViewModel extends BaseViewModel {
     SidebarItem(title: "Pencarian", icon: Ionicons.search),
   ];
 
-  int get sidebarActiveIndex => _sidebarActiveIndex;
   List<SidebarItem> get sidebarItems => _sidebarItems;
 
-  void setSidebarActiveIndex(int index) {
-    _sidebarActiveIndex = index;
+  void handleNavigation(int index) {
+    if (currentIndex == index) return;
+
+    setIndex(index);
     switch (index) {
       case 0:
         _navigationService.replaceWithTransition(
@@ -36,7 +35,7 @@ class HomeViewModel extends BaseViewModel {
         break;
       case 1:
         _navigationService.replaceWithTransition(
-          const JurnalView(),
+          const JurnalFolderView(),
           transitionStyle: Transition.rightToLeft,
           id: 0,
         );

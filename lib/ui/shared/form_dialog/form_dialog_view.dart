@@ -118,38 +118,38 @@ class FormDialogView extends StatelessWidget {
                     hintText: 'Tahun',
                     onChanged: (value) => model.jurnal.tahun = value,
                   ),
-                  const SizedBox(height: 8),
-                  CustomTextField(
-                    controller: model.prodiController,
-                    onTap: () {
-                      DropDownState(
-                        DropDown(
-                          searchHintText: 'Cari',
-                          bottomSheetTitle: 'Prodi',
-                          searchBackgroundColor: Colors.black12,
-                          dataList: model.prodis
-                              .map(
-                                (prodi) => SelectedListItem(
-                                    false, "${prodi.fakultas} - ${prodi.nama}"),
-                              )
-                              .toList(),
-                          selectedItem: (String selected) {
-                            model.prodiController.text =
-                                selected.split(' - ')[1];
-                          },
-                          enableMultipleSelection: false,
-                          searchController: model.searchController,
-                        ),
-                      ).showModal(context);
-                    },
-                    readOnly: true,
-                    prefixIcon: const Icon(
-                      Ionicons.school_outline,
-                      color: secondaryColor,
-                    ),
-                    suffixIcon: const Icon(Ionicons.caret_down),
-                    hintText: 'Prodi',
-                  ),
+                  // const SizedBox(height: 8),
+                  // CustomTextField(
+                  //   controller: model.prodiController,
+                  //   onTap: () {
+                  //     DropDownState(
+                  //       DropDown(
+                  //         searchHintText: 'Cari',
+                  //         bottomSheetTitle: 'Prodi',
+                  //         searchBackgroundColor: Colors.black12,
+                  //         dataList: model.prodis
+                  //             .map(
+                  //               (prodi) => SelectedListItem(
+                  //                   false, "${prodi.fakultas} - ${prodi.nama}"),
+                  //             )
+                  //             .toList(),
+                  //         selectedItem: (String selected) {
+                  //           model.prodiController.text =
+                  //               selected.split(' - ')[1];
+                  //         },
+                  //         enableMultipleSelection: false,
+                  //         searchController: model.searchController,
+                  //       ),
+                  //     ).showModal(context);
+                  //   },
+                  //   readOnly: true,
+                  //   prefixIcon: const Icon(
+                  //     Ionicons.school_outline,
+                  //     color: secondaryColor,
+                  //   ),
+                  //   suffixIcon: const Icon(Ionicons.caret_down),
+                  //   hintText: 'Prodi',
+                  // ),
                   if (model.errorMessage != null) ...[
                     const SizedBox(height: 8),
                     Row(

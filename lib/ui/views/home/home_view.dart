@@ -41,8 +41,8 @@ class HomeView extends StatelessWidget {
           bottomNavigationBar: Device.screenType != ScreenType.mobile
               ? null
               : BottomNavigationBar(
-                  currentIndex: model.sidebarActiveIndex,
-                  onTap: model.setSidebarActiveIndex,
+                  currentIndex: model.currentIndex,
+                  onTap: model.handleNavigation,
                   items: const [
                     BottomNavigationBarItem(
                       icon: Icon(Ionicons.home),

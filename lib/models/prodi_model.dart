@@ -5,6 +5,9 @@ class ProdiModel {
   final String nama;
   final String fakultas;
 
+  int jumlahJurnal = 0;
+  int bytes = 0;
+
   ProdiModel({String? id, required this.nama, required this.fakultas})
       : _id = id ?? const Uuid().v4();
 
@@ -24,5 +27,13 @@ class ProdiModel {
   @override
   String toString() {
     return 'ProdiModel{_id: $_id, nama: $nama, fakultas: $fakultas}';
+  }
+
+  String get size {
+    final kb = bytes / 1024;
+    final mb = kb / 1024;
+    return mb > 1
+        ? '${mb.toStringAsFixed(2)} MB'
+        : '${kb.toStringAsFixed(2)} KB';
   }
 }

@@ -5,6 +5,7 @@ import 'package:pencarian_jurnal/app/app.router.dart';
 import 'package:pencarian_jurnal/models/jurnal_model.dart';
 import 'package:pencarian_jurnal/models/response_api_model.dart';
 import 'package:pencarian_jurnal/services/knn_service.dart';
+import 'package:pencarian_jurnal/utils/preprocessing.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -29,8 +30,10 @@ class PencarianViewModel extends BaseViewModel {
 
       setBusy(true);
 
+      final textClean = await Preprocessing().preprocess(kataController.text);
+
       final response = await _knnService.prosesDokumen(
-          kataController.text, int.parse(kController.text));
+          textClean, int.parse(kController.text));
 
       result = response.data;
     } on String catch (e) {

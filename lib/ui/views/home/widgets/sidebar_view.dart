@@ -34,10 +34,10 @@ class SideBar extends ViewModelWidget<HomeViewModel> {
               iconColor: greyColor,
               textColor: fontColor,
               selectedColor: primaryColor,
-              selected: viewModel.sidebarActiveIndex == index,
+              selected: viewModel.currentIndex == index,
               leading: Icon(item.icon),
               title: Text(item.title),
-              onTap: () => viewModel.setSidebarActiveIndex(index),
+              onTap: () => viewModel.handleNavigation(index),
             );
           },
         ),

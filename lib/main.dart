@@ -24,8 +24,8 @@ void main() async {
   setupDialogUi();
   setupSnackbarUi();
 
-  await locator<JurnalService>().syncData();
   await locator<ProdiService>().syncData();
+  await locator<JurnalService>().syncData();
 
   runApp(const MyApp());
 }

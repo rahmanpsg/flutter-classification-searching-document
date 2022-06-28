@@ -6,7 +6,7 @@ import 'package:stacked/stacked.dart';
 import 'models/column_item.dart';
 import 'table_viewmodel.dart';
 import 'widgets/header.dart';
-import 'widgets/toolbar.dart';
+// import 'widgets/toolbar.dart';
 import 'widgets/body.dart';
 
 class TableView extends StatelessWidget {
@@ -68,19 +68,37 @@ class TableView extends StatelessWidget {
                           scrollDirection: Axis.horizontal,
                           child: SizedBox(
                             width: maxWidth + 130,
-                            child: ListView.separated(
-                              // shrinkWrap: true,
-                              itemCount: rows!.length,
-                              // itemCount: rows!.length,
-                              itemBuilder: (_, index) => Body(
-                                children: (rows![index].children!),
-                              ),
-                              separatorBuilder: (_, index) => const Divider(
-                                color: greySecondaryColor,
-                                thickness: 1,
+                            child: Scrollbar(
+                              thickness: 10,
+                              child: ListView.separated(
+                                // shrinkWrap: true,
+                                itemCount: rows!.length,
+                                // itemCount: rows!.length,
+                                itemBuilder: (_, index) => Body(
+                                  children: (rows![index].children!),
+                                ),
+                                separatorBuilder: (_, index) => const Divider(
+                                  color: greySecondaryColor,
+                                  thickness: 1,
+                                ),
                               ),
                             ),
                           ),
+                        ),
+                      ),
+                    if (rows == null || rows!.isEmpty)
+                      Expanded(
+                        child: Column(
+                          children: const [
+                            Center(
+                              child: Text(
+                                'Tidak ada data',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     // const _Footer(),

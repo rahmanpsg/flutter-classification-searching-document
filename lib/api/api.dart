@@ -9,8 +9,8 @@ class Api {
     // baseUrl: GetPlatform.isAndroid
     //   ? 'http://10.0.2.2:3000/api'
     //   : 'http://localhost:3000/api',
-    // baseUrl: 'http://127.0.0.1:8000/api/',
-    baseUrl: 'https://knn-server.herokuapp.com/api/',
+    baseUrl: 'http://127.0.0.1:8000/api/',
+    // baseUrl: 'https://knn-server.herokuapp.com/api/',
     // connectTimeout: 10000, //10 seconds
     receiveTimeout: 10000,
   ));

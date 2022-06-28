@@ -19,6 +19,8 @@ class ProdiService with ReactiveServiceMixin {
   // final ReactiveValue<List<ProdiModel>> _prodis =
   //     ReactiveValue<List<ProdiModel>>([]);
 
+  ProdiModel? prodiSelected;
+
   ProdiService() {
     listenToReactiveValues([_prodis]);
   }

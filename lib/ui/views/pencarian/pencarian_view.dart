@@ -21,7 +21,7 @@ class PencarianView extends StatelessWidget {
         Widget? child,
       ) {
         return Scaffold(
-          body: SingleChildScrollView(
+          body: Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 16,
             ),
@@ -37,7 +37,7 @@ class PencarianView extends StatelessWidget {
                         controller: model.kataController,
                         errorText: model.errorKataMessage,
                         hintText: 'Kata kunci',
-                        maxLines: 4,
+                        maxLines: 8,
                       ),
                       const SizedBox(height: 16),
                       CustomTextField(
@@ -72,55 +72,59 @@ class PencarianView extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 if (model.result != null)
-                  CustomCard(
-                    title: 'Hasil Pencarian',
-                    child: Card(
-                      elevation: 0,
-                      child: ListView.separated(
-                        itemBuilder: ((context, index) {
-                          final jurnal = model.result![index];
+                  Flexible(
+                    child: CustomCard(
+                      title: 'Hasil Pencarian',
+                      child: Flexible(
+                        child: Card(
+                          elevation: 0,
+                          child: ListView.separated(
+                            itemBuilder: ((context, index) {
+                              final jurnal = model.result![index];
 
-                          return ListTile(
-                            tileColor: thirdColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                            ),
-                            leading: GestureDetector(
-                              onTap: () => model.toPDFView(jurnal),
-                              child: Tooltip(
-                                message: "Lihat",
-                                child: MouseRegion(
-                                  cursor: SystemMouseCursors.click,
-                                  child: Card(
-                                    child: Image.network(
-                                      "https://img.icons8.com/external-flatart-icons-flat-flatarticons/64/undefined/external-pdf-file-online-learning-flatart-icons-flat-flatarticons.png",
-                                      height: 40,
+                              return ListTile(
+                                tileColor: thirdColor,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18.0),
+                                ),
+                                leading: GestureDetector(
+                                  onTap: () => model.toPDFView(jurnal),
+                                  child: Tooltip(
+                                    message: "Lihat",
+                                    child: MouseRegion(
+                                      cursor: SystemMouseCursors.click,
+                                      child: Card(
+                                        child: Image.network(
+                                          "https://img.icons8.com/external-flatart-icons-flat-flatarticons/64/undefined/external-pdf-file-online-learning-flatart-icons-flat-flatarticons.png",
+                                          height: 40,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ),
-                            title: Text(
-                              jurnal.nama ?? '-',
-                              style: boldTextStyle,
-                            ),
-                            subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Prodi: ${jurnal.prodi}',
+                                title: Text(
+                                  jurnal.nama ?? '-',
+                                  style: boldTextStyle,
                                 ),
-                                Text(
-                                  'Jarak: ${jurnal.jarak}',
+                                subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Prodi: ${jurnal.prodi}',
+                                    ),
+                                    Text(
+                                      'Jarak: ${jurnal.jarak}',
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          );
-                        }),
-                        separatorBuilder: (context, index) =>
-                            const SizedBox(height: 8),
-                        itemCount: model.result!.length,
-                        shrinkWrap: true,
+                              );
+                            }),
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(height: 8),
+                            itemCount: model.result!.length,
+                            // shrinkWrap: true,
+                          ),
+                        ),
                       ),
                     ),
                   )

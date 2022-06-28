@@ -7,10 +7,13 @@ import 'package:pencarian_jurnal/models/jurnal_model.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+import 'prodi_service.dart';
+
 class JurnalService with ReactiveServiceMixin {
   final log = getLogger('JurnalService');
 
   final _snackbarService = locator<SnackbarService>();
+  final _prodiService = locator<ProdiService>();
 
   final _firestoreApi = FirestoreApi<JurnalModel>()
     ..collectionReference = FirebaseFirestore.instance
@@ -45,8 +48,6 @@ class JurnalService with ReactiveServiceMixin {
     try {
       final response = await _firestoreApi.getDocuments();
 
-      log.d("response : ${response.data}");
-
       if (response.error) {
         log.e("error: ${response.message}");
         _snackbarService.showSnackbar(
@@ -58,7 +59,24 @@ class JurnalService with ReactiveServiceMixin {
 
       if (response.data == null) return;
 
-      _jurnals.addAll(response.data!.map((e) => e.data()));
+      for (var data in response.data!) {
+        final jurnal = data.data();
+
+        _jurnals.add(jurnal);
+
+        // hitung jumlah jurnal per prodi
+        final prodiS = jurnal.prodi;
+        if (prodiS != null) {
+          final prodi = _prodiService.prodis
+              .firstWhere((element) => element.nama == prodiS);
+
+          prodi.jumlahJurnal++;
+
+          prodi.bytes += jurnal.fileData!.bytes;
+        }
+      }
+
+      // _jurnals.addAll(response.data!.map((e) => e.data()));
     } catch (e) {
       log.e(e);
     }
