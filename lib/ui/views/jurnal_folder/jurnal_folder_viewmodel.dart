@@ -3,6 +3,7 @@ import 'package:pencarian_jurnal/app/app.logger.dart';
 import 'package:pencarian_jurnal/models/prodi_model.dart';
 import 'package:pencarian_jurnal/services/prodi_service.dart';
 import 'package:pencarian_jurnal/ui/views/jurnal/jurnal_view.dart';
+import 'package:pencarian_jurnal/ui/views/jurnal_proses/jurnal_proses_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -18,6 +19,14 @@ class JurnalFolderViewModel extends BaseViewModel {
     _navigationService.navigateWithTransition(
       const JurnalView(),
       transitionStyle: Transition.fade,
+      id: 0,
+    );
+  }
+
+  void toJurnalProsesView() {
+    _navigationService.navigateWithTransition(
+      const JurnalProsesView(),
+      transitionStyle: Transition.rightToLeft,
       id: 0,
     );
   }

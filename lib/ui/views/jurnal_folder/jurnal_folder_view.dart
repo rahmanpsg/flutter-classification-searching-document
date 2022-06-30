@@ -123,7 +123,7 @@ class JurnalFolderView extends StatelessWidget {
                                     style: primaryTextStyle.copyWith(
                                         color: Colors.white),
                                   ),
-                                  onPressed: () {},
+                                  onPressed: model.toJurnalProsesView,
                                 ),
                               )
                             ],

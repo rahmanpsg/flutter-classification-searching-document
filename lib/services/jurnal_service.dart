@@ -62,13 +62,19 @@ class JurnalService with ReactiveServiceMixin {
       for (var data in response.data!) {
         final jurnal = data.data();
 
+        // find empty text in jurnal
+        if (jurnal.fileData?.text == null || jurnal.fileData!.text!.isEmpty) {
+          log.i(jurnal);
+          log.i("empty text");
+          // continue;
+        }
+
         _jurnals.add(jurnal);
 
         // hitung jumlah jurnal per prodi
-        final prodiS = jurnal.prodi;
-        if (prodiS != null) {
+        if (jurnal.prodi != null) {
           final prodi = _prodiService.prodis
-              .firstWhere((element) => element.nama == prodiS);
+              .firstWhere((element) => element.nama == jurnal.prodi);
 
           prodi.jumlahJurnal++;
 
@@ -97,6 +103,13 @@ class JurnalService with ReactiveServiceMixin {
     }
 
     _jurnals.insert(0, jurnal);
+
+    final prodi = _prodiService.prodis
+        .firstWhere((element) => element.nama == jurnal.prodi);
+
+    prodi.jumlahJurnal++;
+
+    prodi.bytes += jurnal.fileData!.bytes;
 
     log.d("add jurnal : $jurnal");
   }
@@ -141,6 +154,13 @@ class JurnalService with ReactiveServiceMixin {
     }
 
     _jurnals.remove(jurnal);
+
+    final prodi = _prodiService.prodis
+        .firstWhere((element) => element.nama == jurnal.prodi);
+
+    prodi.jumlahJurnal--;
+
+    prodi.bytes -= jurnal.fileData!.bytes;
 
     log.d("delete jurnal : $jurnal");
   }

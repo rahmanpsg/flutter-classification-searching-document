@@ -56,6 +56,15 @@ class _CustomDropZoneState extends State<CustomDropZone> {
       //Dispose the document.
       document.dispose();
 
+      // check text
+      if (text.isEmpty) {
+        locator<DialogService>().showDialog(
+          title: 'Error',
+          description: 'File tidak dapat dibaca',
+        );
+        return;
+      }
+
       String textPreprocessing = await preprocessing.preprocess(text);
 
       // update the data model with recent file uploaded

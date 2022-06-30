@@ -29,7 +29,8 @@ class FileDataModel {
       : name = json['name'],
         mime = json['mime'],
         bytes = json['bytes'],
-        url = json['url'];
+        url = json['url'],
+        text = json['text'];
 
   Map<String, dynamic> toJson() => {
         'name': name,
