@@ -4,6 +4,7 @@ import 'package:pencarian_jurnal/models/jurnal_model.dart';
 import 'package:pencarian_jurnal/models/prodi_model.dart';
 import 'package:pencarian_jurnal/services/jurnal_service.dart';
 import 'package:pencarian_jurnal/services/prodi_service.dart';
+import 'package:pencarian_jurnal/services/table_service.dart';
 import 'package:pencarian_jurnal/ui/views/dashboard/dashboard_view.dart';
 import 'package:pencarian_jurnal/ui/views/jurnal/jurnal_view.dart';
 import 'package:pencarian_jurnal/ui/views/jurnal_folder/jurnal_folder_view.dart';
@@ -35,6 +36,7 @@ import 'package:pencarian_jurnal/ui/views/home/home_view.dart';
     LazySingleton(classType: FirebaseStorageApi),
     LazySingleton(classType: JurnalService),
     LazySingleton(classType: ProdiService),
+    LazySingleton(classType: TableService),
   ],
   logger: StackedLogger(),
 )

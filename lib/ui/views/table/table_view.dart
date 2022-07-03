@@ -12,9 +12,14 @@ import 'widgets/body.dart';
 class TableView extends StatelessWidget {
   final List<ColumnItem> columns;
   final List<TableRow>? rows;
+  final bool showDropzone;
 
-  const TableView({Key? key, required this.columns, this.rows})
-      : super(key: key);
+  const TableView({
+    Key? key,
+    required this.columns,
+    this.rows,
+    this.showDropzone = true,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +40,10 @@ class TableView extends StatelessWidget {
           children: [
             // const Toolbar(),
             const SizedBox(height: 12),
-            CustomDropZone(onDroppedFile: model.setFile),
-            const SizedBox(height: 12),
+            if (showDropzone) ...[
+              CustomDropZone(onDroppedFile: model.setFile),
+              const SizedBox(height: 12)
+            ],
             Flexible(
               child: Container(
                 decoration: BoxDecoration(

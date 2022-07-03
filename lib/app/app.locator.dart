@@ -12,6 +12,7 @@ import 'package:stacked_services/stacked_services.dart';
 import '../api/firebase_storage_api.dart';
 import '../services/jurnal_service.dart';
 import '../services/prodi_service.dart';
+import '../services/table_service.dart';
 
 final locator = StackedLocator.instance;
 
@@ -29,4 +30,5 @@ Future<void> setupLocator(
   locator.registerLazySingleton(() => FirebaseStorageApi());
   locator.registerLazySingleton(() => JurnalService());
   locator.registerLazySingleton(() => ProdiService());
+  locator.registerLazySingleton(() => TableService());
 }

@@ -16,6 +16,7 @@ import '../ui/views/dashboard/dashboard_view.dart';
 import '../ui/views/home/home_view.dart';
 import '../ui/views/jurnal/jurnal_view.dart';
 import '../ui/views/jurnal_folder/jurnal_folder_view.dart';
+import '../ui/views/jurnal_proses/jurnal_proses_view.dart';
 import '../ui/views/klasifikasi/klasifikasi_view.dart';
 import '../ui/views/pdf/pdf_view.dart';
 import '../ui/views/pencarian/pencarian_view.dart';
@@ -77,12 +78,14 @@ class HomeViewRoutes {
   static const String dashboardView = '/';
   static const String jurnalView = '/jurnal-view';
   static const String jurnalFolderView = '/jurnal-folder-view';
+  static const String jurnalProsesView = '/jurnal-proses-view';
   static const String klasifikasiView = '/klasifikasi-view';
   static const String pencarianView = '/pencarian-view';
   static const all = <String>{
     dashboardView,
     jurnalView,
     jurnalFolderView,
+    jurnalProsesView,
     klasifikasiView,
     pencarianView,
   };
@@ -95,6 +98,7 @@ class HomeViewRouter extends RouterBase {
     RouteDef(HomeViewRoutes.dashboardView, page: DashboardView),
     RouteDef(HomeViewRoutes.jurnalView, page: JurnalView),
     RouteDef(HomeViewRoutes.jurnalFolderView, page: JurnalFolderView),
+    RouteDef(HomeViewRoutes.jurnalProsesView, page: JurnalProsesView),
     RouteDef(HomeViewRoutes.klasifikasiView, page: KlasifikasiView),
     RouteDef(HomeViewRoutes.pencarianView, page: PencarianView),
   ];
@@ -116,6 +120,12 @@ class HomeViewRouter extends RouterBase {
     JurnalFolderView: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => const JurnalFolderView(),
+        settings: data,
+      );
+    },
+    JurnalProsesView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const JurnalProsesView(),
         settings: data,
       );
     },
@@ -196,6 +206,22 @@ extension NavigatorStateExtension on NavigationService {
   }) async {
     return navigateTo(
       HomeViewRoutes.jurnalFolderView,
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> navigateToNestedJurnalProsesView({
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo(
+      HomeViewRoutes.jurnalProsesView,
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,

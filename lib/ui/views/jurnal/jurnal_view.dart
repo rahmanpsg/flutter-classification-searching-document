@@ -132,8 +132,9 @@ class JurnalView extends StatelessWidget {
                                             CircleAvatar(
                                               backgroundColor: greyThirdColor,
                                               child: Text(
-                                                model
-                                                    .getShortName(jurnal.nama!),
+                                                jurnal.nama!
+                                                    .trim()[0]
+                                                    .toUpperCase(),
                                                 style: greyTextStyle,
                                               ),
                                             ),

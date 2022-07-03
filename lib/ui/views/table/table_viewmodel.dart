@@ -7,6 +7,7 @@ import 'package:pencarian_jurnal/models/file_data_model.dart';
 import 'package:pencarian_jurnal/models/jurnal_model.dart';
 import 'package:pencarian_jurnal/services/jurnal_service.dart';
 import 'package:pencarian_jurnal/services/prodi_service.dart';
+import 'package:pencarian_jurnal/services/table_service.dart';
 import 'package:pencarian_jurnal/ui/shared/form_dialog/form_dialog_view.dart';
 import 'package:pencarian_jurnal/utils/debounce.dart';
 import 'package:stacked/stacked.dart';
@@ -16,6 +17,7 @@ class TableViewModel extends ReactiveViewModel {
   final log = getLogger('TableViewModel');
 
   final _dialogService = locator<DialogService>();
+  final _tableService = locator<TableService>();
   final _jurnalService = locator<JurnalService>();
   final _prodiService = locator<ProdiService>();
 
@@ -86,5 +88,6 @@ class TableViewModel extends ReactiveViewModel {
   }
 
   @override
-  List<ReactiveServiceMixin> get reactiveServices => [_jurnalService];
+  List<ReactiveServiceMixin> get reactiveServices =>
+      [_tableService, _jurnalService];
 }

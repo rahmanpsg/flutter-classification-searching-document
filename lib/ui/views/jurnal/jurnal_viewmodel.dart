@@ -37,26 +37,6 @@ class JurnalViewModel extends ReactiveViewModel {
     ColumnItem(value: "Aksi", width: 150),
   ];
 
-  String getShortName(String name) {
-    String res = '';
-
-    List<String> names = name.trim().split(' ');
-
-    for (int i = 0; i < names.length; i++) {
-      if (i == 0) {
-        res += names[i][0].toUpperCase();
-      } else {
-        res += names[i][0].toUpperCase();
-      }
-
-      if (res.length == 2) {
-        break;
-      }
-    }
-
-    return res;
-  }
-
   void toPDFView(JurnalModel jurnal) {
     _navigationService.navigateTo(Routes.pdfView,
         arguments: PdfViewArguments(jurnal: jurnal));
