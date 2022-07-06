@@ -82,7 +82,8 @@ class TableView extends StatelessWidget {
                                 itemCount: rows!.length,
                                 // itemCount: rows!.length,
                                 itemBuilder: (_, index) => Body(
-                                  children: (rows![index].children!),
+                                  children:
+                                      (rows![index].children ?? [Container()]),
                                 ),
                                 separatorBuilder: (_, index) => const Divider(
                                   color: greySecondaryColor,

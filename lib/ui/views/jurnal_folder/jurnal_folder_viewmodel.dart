@@ -11,7 +11,9 @@ class JurnalFolderViewModel extends BaseViewModel {
   final log = getLogger('JurnalFolderViewModel');
 
   final _navigationService = locator<NavigationService>();
+  final _dialogService = locator<DialogService>();
   final _prodiService = locator<ProdiService>();
+
   List<ProdiModel> get prodis => _prodiService.prodis;
 
   void toJurnalView(ProdiModel prodi) {
@@ -23,7 +25,14 @@ class JurnalFolderViewModel extends BaseViewModel {
     );
   }
 
-  void toJurnalProsesView() {
+  void toJurnalProsesView() async {
+    final response = await _dialogService.showConfirmationDialog(
+        title: 'Proses Jurnal',
+        description: 'Anda akan memulai proses jurnal?',
+        dialogPlatform: DialogPlatform.Material);
+
+    if (response?.confirmed != true) return;
+
     _navigationService.navigateWithTransition(
       const JurnalProsesView(),
       transitionStyle: Transition.rightToLeft,
