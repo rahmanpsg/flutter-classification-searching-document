@@ -28,8 +28,7 @@ class DashboardView extends StatelessWidget {
           child: Column(
             children: [
               CustomCard(
-                title: "Halo, Selamat malam!",
-                subtitle:
+                title:
                     "Selamat datang di aplikasi klasifikasi dan pencarian jurnal",
                 height: MediaQuery.of(context).size.height,
                 childExpanded: true,

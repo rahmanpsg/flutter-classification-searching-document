@@ -24,18 +24,30 @@ class PencarianViewModel extends BaseViewModel {
 
   List<JurnalModel>? result;
 
+  Duration? _duration;
+
+  String get duration => _duration?.toString() ?? '0:00:00';
+
   void onSubmit() async {
     try {
       validate();
 
       setBusy(true);
 
-      final textClean = await Preprocessing().preprocess(kataController.text);
+      // log stopwatch
+      final stopwatch = Stopwatch()..start();
+
+      // final textClean = await Preprocessing().preprocess(kataController.text);
 
       final response = await _knnService.prosesDokumen(
-          textClean, int.parse(kController.text));
+          kataController.text, int.parse(kController.text));
 
       result = response.data;
+
+      stopwatch.stop();
+      log.i('proses dokumen: ${stopwatch.elapsed}');
+
+      _duration = stopwatch.elapsed;
     } on String catch (e) {
       log.e(e);
     } on ResponseApiModel catch (e) {

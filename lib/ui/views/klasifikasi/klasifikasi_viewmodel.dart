@@ -24,6 +24,10 @@ class KlasifikasiViewModel extends BaseViewModel {
 
   List<JurnalModel>? result;
 
+  Duration? _duration;
+
+  String get duration => _duration?.toString() ?? '0:00:00';
+
   void setFileData(FileDataModel fileData) {
     _fileData = fileData;
     notifyListeners();
@@ -35,10 +39,18 @@ class KlasifikasiViewModel extends BaseViewModel {
 
       setBusy(true);
 
+      // log stopwatch
+      final stopwatch = Stopwatch()..start();
+
       final response = await _knnService.prosesDokumen(
           _fileData!.text!, int.parse(kController.text));
 
       result = response.data;
+
+      stopwatch.stop();
+      log.i('proses dokumen: ${stopwatch.elapsed}');
+
+      _duration = stopwatch.elapsed;
     } on String catch (e) {
       log.e(e);
     } on ResponseApiModel catch (e) {

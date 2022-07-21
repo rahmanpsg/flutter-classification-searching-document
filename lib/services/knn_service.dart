@@ -19,7 +19,9 @@ class KnnService {
 
       List<JurnalModel> jurnals = [];
 
-      for (var jurnal in jsonDecode(response.data)) {
+      // log.i(jsonDecode(response.data));
+
+      for (var jurnal in response.data) {
         jurnals.add(JurnalModel.fromJson(jurnal));
       }
 

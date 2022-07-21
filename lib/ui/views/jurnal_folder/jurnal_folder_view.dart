@@ -47,54 +47,49 @@ class JurnalFolderView extends StatelessWidget {
                           child: Column(
                             children: [
                               Flexible(
-                                child: GridView.builder(
-                                    gridDelegate:
-                                        const SliverGridDelegateWithMaxCrossAxisExtent(
-                                      maxCrossAxisExtent: 250,
-                                      mainAxisSpacing: 16,
-                                      crossAxisSpacing: 16,
-                                      childAspectRatio: 3,
-                                    ),
-                                    itemCount: model.prodis.length,
-                                    itemBuilder: (context, index) {
-                                      final prodi = model.prodis[index];
+                                child: Card(
+                                  elevation: 0,
+                                  margin: const EdgeInsets.all(0),
+                                  child: GridView.builder(
+                                      gridDelegate:
+                                          const SliverGridDelegateWithMaxCrossAxisExtent(
+                                        maxCrossAxisExtent: 250,
+                                        mainAxisSpacing: 16,
+                                        crossAxisSpacing: 16,
+                                        childAspectRatio: 3,
+                                      ),
+                                      itemCount: model.prodis.length,
+                                      itemBuilder: (context, index) {
+                                        final prodi = model.prodis[index];
 
-                                      return ListTile(
-                                        onTap: () => model.toJurnalView(prodi),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                          side: const BorderSide(
-                                            color: greySecondaryColor,
-                                            width: 1.5,
+                                        return ListTile(
+                                          onTap: () =>
+                                              model.toJurnalView(prodi),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            side: const BorderSide(
+                                              color: greySecondaryColor,
+                                              width: 1.5,
+                                            ),
                                           ),
-                                        ),
-                                        leading: const Icon(
-                                          Ionicons.folder,
-                                          color: secondaryColor,
-                                        ),
-                                        title: Text(
-                                          prodi.nama,
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                        subtitle: Text(
-                                            '${prodi.jumlahJurnal} file | ${prodi.size}',
-                                            style: greyTextStyle),
-                                      );
-                                    }),
+                                          leading: const Icon(
+                                            Ionicons.folder,
+                                            color: secondaryColor,
+                                          ),
+                                          title: Text(
+                                            prodi.nama,
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          subtitle: Text(
+                                              '${prodi.jumlahJurnal} file | ${prodi.size}',
+                                              style: greyTextStyle),
+                                        );
+                                      }),
+                                ),
                               ),
-                              // const Spacer(),
-                              // Row(
-                              //   mainAxisAlignment: MainAxisAlignment.end,
-                              //   children: [
-                              //     ElevatedButton.icon(
-                              //         onPressed: () {},
-                              //         icon: const Icon(Ionicons.send),
-                              //         label: const Text(
-                              //             'Klik disini untuk memulai proses dokumen')),
-                              //   ],
-                              // ),
+                              const SizedBox(height: 16),
                               ListTile(
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8),

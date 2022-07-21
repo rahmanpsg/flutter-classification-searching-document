@@ -17,7 +17,7 @@ class SideBar extends ViewModelWidget<HomeViewModel> {
   @override
   Widget build(BuildContext context, HomeViewModel viewModel) {
     return Ink(
-      width: 200,
+      width: 300,
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.horizontal(

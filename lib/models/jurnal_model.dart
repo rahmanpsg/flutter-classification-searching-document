@@ -1,6 +1,8 @@
 import 'package:pencarian_jurnal/models/file_data_model.dart';
 import 'package:uuid/uuid.dart';
 
+import 'hasil_tf_idf_model.dart';
+
 class JurnalModel {
   final String _id;
   FileDataModel? fileData;
@@ -10,6 +12,7 @@ class JurnalModel {
   String? prodi;
   double? jarak;
   String? prediksi;
+  List<HasilTfIdfModel>? hasilsTfIdf;
 
   JurnalModel({
     String? id,
@@ -20,6 +23,7 @@ class JurnalModel {
     this.prodi,
     this.jarak,
     this.prediksi,
+    this.hasilsTfIdf,
   }) : _id = id ?? const Uuid().v4();
 
   String get id => _id;
@@ -34,7 +38,12 @@ class JurnalModel {
         tahun = json['tahun'],
         prodi = json['prodi'],
         jarak = json['jarak'],
-        prediksi = json['prediksi'];
+        prediksi = json['prediksi'],
+        hasilsTfIdf = json['hasil_tfidf'] != null
+            ? (json['hasil_tfidf'] as List)
+                .map((e) => HasilTfIdfModel.fromJson(e))
+                .toList()
+            : null;
 
   Map<String, dynamic> toJson() => {
         'id': _id,

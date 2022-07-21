@@ -7,7 +7,6 @@ import 'package:pencarian_jurnal/theme/app_text.dart';
 import 'package:pencarian_jurnal/ui/views/table/models/column_item.dart';
 import 'package:pencarian_jurnal/ui/views/table/table_view.dart';
 import 'package:pencarian_jurnal/ui/widgets/custom_card.dart';
-import 'package:pencarian_jurnal/ui/widgets/custom_chip.dart';
 import 'package:stacked/stacked.dart';
 
 import 'jurnal_proses_viewmodel.dart';
@@ -163,7 +162,7 @@ class JurnalProsesView extends StatelessWidget {
                                                             value: "IDF",
                                                             width: 200),
                                                         ColumnItem(
-                                                            value: "TD-IDF",
+                                                            value: "TF-IDF",
                                                             width: 200),
                                                       ],
                                                       rows: model.hasils[model
