@@ -16,30 +16,32 @@ class SideBar extends ViewModelWidget<HomeViewModel> {
 
   @override
   Widget build(BuildContext context, HomeViewModel viewModel) {
-    return Ink(
+    return SizedBox(
       width: 300,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.horizontal(
-          right: Radius.circular(16),
+      child: Ink(
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.horizontal(
+            right: Radius.circular(16),
+          ),
         ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 24),
-        child: ListView.builder(
-          itemCount: viewModel.sidebarItems.length,
-          itemBuilder: (context, index) {
-            final item = viewModel.sidebarItems[index];
-            return ListTile(
-              iconColor: greyColor,
-              textColor: fontColor,
-              selectedColor: primaryColor,
-              selected: viewModel.currentIndex == index,
-              leading: Icon(item.icon),
-              title: Text(item.title),
-              onTap: () => viewModel.handleNavigation(index),
-            );
-          },
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 24),
+          child: ListView.builder(
+            itemCount: viewModel.sidebarItems.length,
+            itemBuilder: (context, index) {
+              final item = viewModel.sidebarItems[index];
+              return ListTile(
+                iconColor: greyColor,
+                textColor: fontColor,
+                selectedColor: primaryColor,
+                selected: viewModel.currentIndex == index,
+                leading: Icon(item.icon),
+                title: Text(item.title),
+                onTap: () => viewModel.handleNavigation(index),
+              );
+            },
+          ),
         ),
       ),
     );

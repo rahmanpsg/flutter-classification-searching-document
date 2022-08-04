@@ -23,113 +23,116 @@ class JurnalFolderView extends StatelessWidget {
           padding: const EdgeInsets.symmetric(
             horizontal: 16,
           ),
-          child: Column(
-            children: <Widget>[
-              Flexible(
-                child: CustomCard(
-                  title: "Daftar Jurnal",
-                  // subtitle: "Silahkan tambahkan jurnal baru",
-                  childExpanded: true,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Divider(),
-                      Text(
-                        'Semua Folders',
-                        style: boldTextStyle.copyWith(
-                            fontSize: 24, color: secondaryColor),
-                      ),
-                      const SizedBox(height: 16),
-                      Flexible(
-                        child: Card(
-                          margin: const EdgeInsets.all(0),
-                          elevation: 0,
-                          child: Column(
-                            children: [
-                              Flexible(
-                                child: Card(
-                                  elevation: 0,
-                                  margin: const EdgeInsets.all(0),
-                                  child: GridView.builder(
-                                      gridDelegate:
-                                          const SliverGridDelegateWithMaxCrossAxisExtent(
-                                        maxCrossAxisExtent: 250,
-                                        mainAxisSpacing: 16,
-                                        crossAxisSpacing: 16,
-                                        childAspectRatio: 3,
-                                      ),
-                                      itemCount: model.prodis.length,
-                                      itemBuilder: (context, index) {
-                                        final prodi = model.prodis[index];
+          child: Container(
+            color: Colors.white,
+            child: Column(
+              children: <Widget>[
+                Flexible(
+                  child: CustomCard(
+                    title: "Daftar Jurnal",
+                    // subtitle: "Silahkan tambahkan jurnal baru",
+                    childExpanded: true,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Divider(),
+                        Text(
+                          'Semua Folders',
+                          style: boldTextStyle.copyWith(
+                              fontSize: 24, color: secondaryColor),
+                        ),
+                        const SizedBox(height: 16),
+                        Flexible(
+                          child: Card(
+                            margin: const EdgeInsets.all(0),
+                            elevation: 0,
+                            child: Column(
+                              children: [
+                                Flexible(
+                                  child: Card(
+                                    elevation: 0,
+                                    margin: const EdgeInsets.all(0),
+                                    child: GridView.builder(
+                                        gridDelegate:
+                                            const SliverGridDelegateWithMaxCrossAxisExtent(
+                                          maxCrossAxisExtent: 250,
+                                          mainAxisSpacing: 16,
+                                          crossAxisSpacing: 16,
+                                          childAspectRatio: 3,
+                                        ),
+                                        itemCount: model.prodis.length,
+                                        itemBuilder: (context, index) {
+                                          final prodi = model.prodis[index];
 
-                                        return ListTile(
-                                          onTap: () =>
-                                              model.toJurnalView(prodi),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                            side: const BorderSide(
-                                              color: greySecondaryColor,
-                                              width: 1.5,
+                                          return ListTile(
+                                            onTap: () =>
+                                                model.toJurnalView(prodi),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              side: const BorderSide(
+                                                color: greySecondaryColor,
+                                                width: 1.5,
+                                              ),
                                             ),
-                                          ),
-                                          leading: const Icon(
-                                            Ionicons.folder,
-                                            color: secondaryColor,
-                                          ),
-                                          title: Text(
-                                            prodi.nama,
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                          subtitle: Text(
-                                              '${prodi.jumlahJurnal} file | ${prodi.size}',
-                                              style: greyTextStyle),
-                                        );
-                                      }),
-                                ),
-                              ),
-                              const SizedBox(height: 16),
-                              ListTile(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                tileColor: secondaryColor,
-                                leading: const Icon(
-                                  Ionicons.information_circle,
-                                  color: Colors.white,
-                                ),
-                                title: Text(
-                                  'Klik disini untuk memulai proses dokumen',
-                                  style: primaryTextStyle.copyWith(
-                                    color: Colors.white,
+                                            leading: const Icon(
+                                              Ionicons.folder,
+                                              color: secondaryColor,
+                                            ),
+                                            title: Text(
+                                              prodi.nama,
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                            subtitle: Text(
+                                                '${prodi.jumlahJurnal} file | ${prodi.size}',
+                                                style: greyTextStyle),
+                                          );
+                                        }),
                                   ),
                                 ),
-                                trailing: OutlinedButton.icon(
-                                  style: OutlinedButton.styleFrom(
-                                      side: const BorderSide(
-                                          color: Colors.white)),
-                                  icon: const Icon(
-                                    Ionicons.send,
+                                const SizedBox(height: 16),
+                                ListTile(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  tileColor: secondaryColor,
+                                  leading: const Icon(
+                                    Ionicons.information_circle,
                                     color: Colors.white,
                                   ),
-                                  label: Text(
-                                    'Proses',
+                                  title: Text(
+                                    'Klik disini untuk memulai proses dokumen',
                                     style: primaryTextStyle.copyWith(
-                                        color: Colors.white),
+                                      color: Colors.white,
+                                    ),
                                   ),
-                                  onPressed: model.toJurnalProsesView,
-                                ),
-                              )
-                            ],
+                                  trailing: OutlinedButton.icon(
+                                    style: OutlinedButton.styleFrom(
+                                        side: const BorderSide(
+                                            color: Colors.white)),
+                                    icon: const Icon(
+                                      Ionicons.send,
+                                      color: Colors.white,
+                                    ),
+                                    label: Text(
+                                      'Proses',
+                                      style: primaryTextStyle.copyWith(
+                                          color: Colors.white),
+                                    ),
+                                    onPressed: model.toJurnalProsesView,
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },

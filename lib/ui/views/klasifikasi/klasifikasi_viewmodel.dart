@@ -70,12 +70,12 @@ class KlasifikasiViewModel extends BaseViewModel {
     if (_fileData == null) {
       throw errorFileMessage = 'Pilih file terlebih dahulu';
     }
-    if (kController.text == '' ||
-        (kController.text != '3' &&
-            kController.text != '5' &&
-            kController.text != '7' &&
-            kController.text != '9')) {
-      throw errorKMessage = 'Masukkan nilai K [3, 5, 7, 9]';
+    if (kController.text.isEmpty) {
+      throw errorKMessage = 'Nilai K harus diisi';
+    }
+    // cek jika bukan angka
+    if (int.tryParse(kController.text) == null) {
+      throw errorKMessage = 'Nilai K harus angka';
     }
   }
 

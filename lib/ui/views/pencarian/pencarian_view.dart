@@ -47,7 +47,7 @@ class PencarianView extends StatelessWidget {
                         CustomTextField(
                           controller: model.kController,
                           errorText: model.errorKMessage,
-                          hintText: 'Masukkan nilai K [3, 5, 7, 9]',
+                          hintText: 'Masukkan nilai K',
                           prefixIcon: const Icon(Ionicons.reader_outline),
                           suffixIcon: const Tooltip(
                             message:

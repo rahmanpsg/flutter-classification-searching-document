@@ -29,7 +29,7 @@ class HomeView extends StatelessWidget {
                 child: const Flexible(child: SideBar()),
               ),
               Expanded(
-                flex: Device.orientation == Orientation.landscape ? 7 : 3,
+                flex: Device.orientation == Orientation.landscape ? 6 : 3,
                 // child: model.viewForIndex,
                 child: ExtendedNavigator(
                   router: HomeViewRouter(),
